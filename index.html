@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LBus - Tempat Pemesanan Tiket Nomor 1 di Indonesia</title>
+    <style>
+        /* CSS RESET & BASE STYLES */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Arial, sans-serif;
+        }
+
+        body {
+            background-color: #f7f9fa;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* TOP BANNER PROMO APP */
+        .top-promo-bar {
+            background-color: #fff9db;
+            text-align: center;
+            padding: 8px 10px;
+            font-size: 13px;
+            border-bottom: 1px solid #ffe066;
+        }
+
+        /* NAVBAR */
+        header {
+            background-color: #ffffff;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #1e3d59;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 20px;
+            list-style: none;
+            font-size: 14px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #555;
+        }
+
+        /* HERO SECTION (PENCARIAN TIKET) */
+        .hero {
+            background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('gambarbatik.jpg');
+            background-size: cover;
+            background-position: center;
+            padding: 60px 0 80px 0;
+            text-align: center;
+            color: white;
+        }
+
+        .hero h1 {
+            font-size: 28px;
+            margin-bottom: 30px;
+        }
+
+        .search-box {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+        }
+
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            text-align: left;
+        }
+
+        .input-group label {
+            font-size: 12px;
+            color: #777;
+            margin-bottom: 5px;
+        }
+
+        .input-group input {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 14px;
+        }
+
+        .btn-search {
+            grid-column: 1 / -1;
+            background-color: #ff0000;
+            color: white;
+            border: none;
+            padding: 12px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 25px;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: 0.3s;
+        }
+
+        .btn-search:hover {
+            background-color: #cc0000;
+        }
+
+        /* SECTION TILES & CARDS */
+        .section-title {
+            background-color: #ffcccc;
+            display: inline-block;
+            padding: 5px 15px;
+            border-radius: 20px 20px 0 0;
+            font-weight: bold;
+            margin-top: 40px;
+            font-size: 16px;
+        }
+
+        .section-box {
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 0 15px 15px 15px;
+            padding: 25px;
+            margin-bottom: 20px;
+        }
+
+        /* MITRA BUS */
+        .mitra-container {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            
+        }
+
+        .mitra-container img {
+            max-height: 50px;
+            object-fit: contain;
+        }
+
+        /* PENAWARAN PROMO */
+        .promo-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .promo-card {
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            transition: 0.3s;
+        }
+
+        .promo-card:hover {
+            transform: translateY(-3px);
+        }
+
+        .promo-card img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* DOWNLOAD APP BANNER */
+        .download-banner {
+            margin: 40px 0;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .download-banner img {
+            width: 100%;
+            display: block;
+        }
+
+        /* INFO TEXT & FOOTER */
+        .info-text {
+            font-size: 12px;
+            color: #555;
+            line-height: 1.6;
+            margin-bottom: 40px;
+        }
+
+        .info-text h3 {
+            margin: 15px 0 5px 0;
+            color: #222;
+        }
+
+        .footer-links {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            padding: 30px 0;
+            border-top: 1px solid #ddd;
+            font-size: 13px;
+        }
+
+        .footer-links a {
+            display: block;
+            color: #0066cc;
+            text-decoration: none;
+            margin-bottom: 8px;
+        }
+
+        footer {
+            background-color: #fff;
+            padding: 20px 0;
+            border-top: 1px solid #eee;
+            font-size: 12px;
+            color: #777;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="top-promo-bar">
+        Dapatkan POTONGAN 10% di Aplikasi LBus! Gunakan kode <b>PRIMER</b> di Aplikasi. <button style="padding: 2px 8px; font-size: 11px; cursor:pointer;">Unduh Aplikasi</button>
+    </div>
+
+    <header>
+        <div class="container navbar">
+            <div class="logo">
+                <img src="logolbus.jpg" alt="logo" width= "200" >
+        <img src="tiketbus.jpg" alt="logo 2" class="navbar-logo" width="75"> 
+        
+</div>
+       
+            <ul class="nav-links">
+                <li><a href="#">🌐 ID</a></li>
+                <li><a href="#">❓ Help</a></li>
+                <li><a href="#">🎫 Tunjukkan Tiket Saya</a></li>
+                <li><a href="#">👤 Akun</a></li>
+            </ul>
+        </div>
+             </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <h1>Tempat Pemesanan Tiket Nomor 1 di Indonesia</h1>
+            <div class="search-box">
+                <div class="input-group">
+                    <label for="asal">Dari</label>
+                    <input type="text" id="asal" placeholder="Tempat Berangkat">
+                </div>
+                <div class="input-group">
+                    <label for="tujuan">Ke</label>
+                    <input type="text" id="tujuan" placeholder="Tempat Tujuan">
+                </div>
+                <div class="input-group">
+                    <label for="tglPergi">Tanggal Pergi</label>
+                    <input type="date" id="tglPergi">
+                </div>
+                <div class="input-group">
+                    <label for="tglPulang">Tanggal Pulang (Opsional)</label>
+                    <input type="date" id="tglPulang">
+                </div>
+                <button class="btn-search" onclick="cariBus()">🔍 Cari Bus</button>
+            </div>
+        </div>
+    </section>
+
+    <main class="container">
+
+        <div class="section-title">Mitra Perusahaan Bus</div>
+        <div class="section-box mitra-container">
+            <img src="mitra_sinarjaya.jpg" alt="Sinar Jaya">
+            <img src="mitra_unicorn.jpg" alt="Unicorn Indorent">
+            <img src="mitra_Haryanto.jpg" alt="Haryanto">
+            <img src="mitra_rosaliaindah.jpg" alt="Rosalia Indah">
+        </div>
+
+        <div class="section-title">Penawaran Untuk Anda</div>
+        <div class="section-box promo-container">
+            <div class="promo-card">
+                <a href="#"><img src="promonav.jpg" alt="Promo Diskon 25%"></a>
+            </div>
+            <div class="promo-card">
+                <a href="#"><img src="promopakailagi.jpg" alt="Promo Diskon 5%"></a>
+            </div>
+        </div>
+
+        <div class="download-banner">
+            <img src="downloadaplikasi.jpg" alt="Download Aplikasi redBus / LBus">
+        </div>
+
+        <div class="info-text">
+            <h3>Pesan Tiket Bus Online Lebih Mudah dan Lebih Cepat melalui LBus!</h3>
+            <p>Butuh tiket bus ke seluruh Indonesia? LBus adalah solusinya! Sebagai agregator bus global, LBus menyediakan layanan perjalanan bus dari dan ke berbagai kota di Indonesia, seperti Jakarta, Bandung, Yogyakarta, Surabaya, Bali, dan lain-lain. Kami bermitra dengan sejumlah operator bus untuk menawarkan pemesanan tiket bus secara online kapan saja dan di mana saja, dengan proses yang mudah dan cepat.
+                Pilih ribuan rute, bandingkan harga tiket bus, dan nikmati perjalanan nyaman dengan berbagai fasilitas tanpa perlu antre di loket. Cukup unduh aplikasi LBus, pesan tiket, dan dapatkan promo menarik serta cashback setiap kali memesan. Jelajahi Indonesia dengan redBus untuk perjalanan yang lebih mudah dan menyenangkan!</p>
+            
+            <h3>Mengapa Memilih LBus untuk Beli Tiket Bus Online?</h3>
+            <p>1. Layanan Pemesanan yang Cepat dan Mudah - LBus menawarkan kemudahan dalam pemesanan tiket bus online    dengan proses yang cepat dan user-friendly.
+                <br>2. Jangkauan Global - LBus tidak hanya beroperasi di Indonesia, tetapi juga dipercaya oleh jutaan pelanggan di Singapura, Malaysia, India, Peru, dan Kolombia.
+               <br> 3. Mitra dengan 3.500+ Operator Bus - Untuk menyediakan layanan terbaik, LBus bermitra dengan lebih dari 3.500 operator bus terkemuka di berbagai negara.
+                <br>4. Layanan Wisata Pulau - Selain tiket bus, LBus juga menyediakan layanan perjalanan antarpulau menggunakan kapal feri di Singapura dan Malaysia.
+                <br>5. Penghematan Waktu dan Uang - LBus membantu Anda menghemat waktu dan uang dengan memungkinkan perbandingan harga tiket bus dari berbagai operator sebelum melakukan pembelian.
+                <br>6. Metode Pembayaran yang Beragam - LBus menyediakan berbagai opsi pembayaran untuk memastikan transaksi yang mudah dan praktis. Terdapat beberapa metode seperti akun virtual LBus, transfer bank, kartu debit atau kredit, dompet digital, dan sebagainya.
+                <br>7. Transaksi Aman dan Terpercaya - Keamanan dan kepercayaan dalam bertransaksi menjadi prioritas utama di LBus.
+                <br>8. Promosi dan Diskon Menarik - LBus menawarkan berbagai program menarik seperti promosi, cashback, dan diskon tarif shuttle bus, dengan garansi harga tetap saat memesan tiket secara online.</p>
+       
+            <h3>Cara Mudah Pesan Tiket Bus dan Shuttle Bus Online di LBus</h3>
+            <p>Sekarang, Anda bisa dengan mudah memesan tiket bis & tiket travel online untuk bus regular maupun shuttle di situs web atau aplikasi LBus. Mudah, cepat, dan bisa dilakukan dari mana pun dan kapan pun.
+Langkah-langkah untuk memesan tiket bus di situs web atau aplikasi LBus semudah ini:
+<br>1. Pilih kota atau terminal asal dan tujuan.
+<br>2. Masukkan tanggal keberangkatan, lalu klik pilihan “Temukan Bus”.
+<br>3. Anda akan diarahkan ke halaman operator bus yang tersedia pada rute tersebut.
+<br>4. Kemudian, Anda akan melihat daftar rekomendasi operator bus, jadwal bus & travel, serta harga tiket bus & travel. Anda juga bisa memasukkan titik keberangkatan dan titik tujuan untuk mendapatkan lokasi keberangkatan dan tujuan yang tepat.
+<br>5. Gunakan fitur ‘filter’ untuk menyesuaikan pilihan tiket bus & travel Anda, termasuk harga tiket bis & travel, waktu keberangkatan, waktu kedatangan, kelas bus, fasilitas, hingga jenis kendaraan untuk travel.
+<br>6. Pilih kursi
+<br>7. Tentukan titik keberangkatan dan kedatangan dari terminal asal atau tujuan.
+<br>8. Lengkapi informasi penumpang, termasuk rincian kontak, alamat surel, nama lengkap, dan umur.
+<br>9. Klik “Lanjutkan Pesanan”, lalu pilih cara pembayaran untuk menyelesaikan pesanan Anda.</p>
+       <h3>Cara Pembayaran</h3>
+   <p>Untuk menyelesaikan pemesanan tiket bus online di LBus, pilih salah satu cara pembayaran berikut:
+<br>1. Transfer ke Akun Virtual LBus
+<br>2. Transfer Manual ke Rekening Bank Pilihan
+<br>3. Kartu Debit atau Kredit
+<br>4. Dompet Digital seperti OVO dan GoPay
+<br>5. Pembayaran di Alfamart atau Indomaret<br>
+Semua transaksi dijamin aman dan tepercaya. Namun, jika Anda mengalami masalah, jangan ragu menghubungi layanan pelanggan LBus ke support@Lbus.id, yang aktif melayani pada pukul 07.00–23.00 WIB.</p> </div>
+
+        <div class="footer-links">
+            <div>
+                <h4>Tentang LBus</h4>
+                <a href="#">Tentang Kami</a>
+                <a href="#">Hubungi Kami</a>
+                <a href="#">Peta Situs</a>
+            </div>
+            <div>
+                <h4>Info</h4>
+                <a href="#">Syarat & Ketentuan</a>
+                <a href="#">Kebijakan Privasi</a>
+                <a href="#">Kebijakan Cookie</a>
+            </div>
+        </div>
+
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>© 2026 LBus India Pvt Ltd. Hak Cipta Dilindungi undang-undang</p>
+        </div>
+    </footer>
+
+    <script>
+        // Set default tanggal hari ini di input date
+        window.onload = function() {
+            const hariIni = new Date().toISOString().split('T')[0];
+            document.getElementById('tglPergi').value = hariIni;
+        };
+
+        // Fungsi interaktif saat klik cari bus
+        function cariBus() {
+            const asal = document.getElementById('asal').value;
+            const tujuan = document.getElementById('tujuan').value;
+            const tanggal = document.getElementById('tglPergi').value;
+
+            if(!asal || !tujuan) {
+                alert('Silakan masukkan lokasi Asal dan Tujuan terlebih dahulu!');
+                return;
+            }
+
+            alert(`Mencari bus dari ${asal} menuju ${tujuan} untuk tanggal ${tanggal}...`);
+            // Di sini kamu bisa mengarahkan ke halaman hasil pencarian sesungguhnya
+        }
+    </script>
+</body>
+</html>
