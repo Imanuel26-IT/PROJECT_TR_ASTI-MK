@@ -29,7 +29,6 @@ body{
     display:block;
 }
 
-/* Customer Support Text */
 .support-text{
     color:white;
     text-align:center;
@@ -38,7 +37,6 @@ body{
     margin:25px 0;
 }
 
-/* Slot Foto */
 .photo-container{
     width:100%;
     display:flex;
@@ -55,7 +53,6 @@ body{
     box-shadow:0 5px 15px rgba(0,0,0,0.25);
 }
 
-/* Contact Box */
 .contact-box{
     background:#f8f1cf;
     padding:30px;
@@ -74,7 +71,6 @@ body{
     line-height:1.8;
 }
 
-/* Responsive */
 @media screen and (max-width:950px){
 
     .main-container{
