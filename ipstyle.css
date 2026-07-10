@@ -38,8 +38,6 @@ body{
     gap:10px;
 }
 
-/* Sidebar */
-
 .sidebar{
     width:260px;
     border:2px solid #222;
@@ -88,8 +86,6 @@ body{
     cursor:pointer;
     font-weight:500;
 }
-
-/* Main Content */
 
 .main-content{
     flex:1;
@@ -160,8 +156,6 @@ body{
 .save-btn:hover{
     transform:translateY(-2px);
 }
-
-/* Responsive */
 
 @media(max-width:900px){
 
