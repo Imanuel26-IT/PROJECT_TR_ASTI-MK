@@ -1,4 +1,3 @@
-// Menunggu semua element HTML selesai dimuat oleh browser
 document.addEventListener('DOMContentLoaded', function() {
     
     // 1. Otomatis mengisi tanggal pergi ke tanggal hari ini
@@ -8,7 +7,7 @@ document.addEventListener('DOMContentLoaded', function() {
         tglPergiInput.value = hariIni;
     }
 
-    // 2. Menangani event klik pada tombol "Cari Bus"
+    // 2. klik pada tombol "Cari Bus"
     const btnCari = document.getElementById('btnCari');
     if (btnCari) {
         btnCari.addEventListener('click', function() {
