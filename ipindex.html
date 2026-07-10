@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Akun Saya</title>
+    <link rel="stylesheet" href="ipstyle.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<div class="container">
+
+    <!-- Header -->
+    <div class="header">
+        <span class="close-btn">✕</span>
+        <h2>Akun</h2>
+    </div>
+
+    <div class="content">
+
+        <!-- Sidebar -->
+        <div class="sidebar">
+
+            <div class="menu-section">
+                <h3>Rincian Saya</h3>
+
+                <div class="menu-item active">
+                    <span>👤</span>
+                    Informasi Pribadi
+                </div>
+
+                <div class="menu-item">
+                    <span>📋</span>
+                    Pemesanan
+                </div>
+            </div>
+
+            <div class="menu-section">
+                <h3>Pembayaran</h3>
+
+                <div class="menu-item">
+                    <span>💳</span>
+                    Metode Pembayaran
+                </div>
+
+                <div class="menu-item">
+                    <span>🏦</span>
+                    Rekening Pengembalian Dana
+                </div>
+            </div>
+
+            <div class="menu-section">
+                <h3>Preferensi</h3>
+
+                <div class="menu-item">
+                    <span>🌎</span>
+                    Negara
+                </div>
+
+                <div class="menu-item">
+                    <span>💲</span>
+                    Mata Uang
+                </div>
+            </div>
+
+            <button class="logout-btn">Keluar</button>
+
+        </div>
+
+        <!-- Form -->
+        <div class="main-content">
+
+            <form id="profileForm">
+
+                <div class="form-group">
+                    <label>Nama</label>
+                    <input type="text" id="nama" placeholder="Masukkan nama">
+                </div>
+
+                <div class="form-group">
+                    <label>Tanggal Lahir</label>
+                    <input type="date" id="tanggalLahir">
+                </div>
+
+                <div class="form-group">
+                    <label>Jenis Kelamin</label>
+
+                    <div class="gender-group">
+                        <label class="radio-box">
+                            <input type="radio" name="gender" value="Laki-laki">
+                            Laki-laki
+                        </label>
+
+                        <label class="radio-box">
+                            <input type="radio" name="gender" value="Perempuan">
+                            Perempuan
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Rincian Kontak</label>
+                    <input type="text" id="kontak" placeholder="Nomor Telepon">
+                </div>
+
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" id="email" placeholder="Masukkan email">
+                </div>
+
+                <div class="button-area">
+                    <button type="submit" class="save-btn">
+                        Simpan Perubahan
+                    </button>
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script src="ipindex.js"></script>
+</body>
+</html>
