@@ -1,0 +1,100 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, Helvetica, sans-serif;
+}
+
+body{
+    background:linear-gradient(to bottom,#f8f1c8,#c8d7ff);
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:20px;
+}
+
+.main-container{
+    width:900px;
+    background:#c93b48;
+    padding:25px;
+}
+
+.banner{
+    width:100%;
+}
+
+.banner img{
+    width:20%;
+    display:block;
+}
+
+/* Customer Support Text */
+.support-text{
+    color:white;
+    text-align:center;
+    font-size:28px;
+    font-weight:bold;
+    margin:25px 0;
+}
+
+/* Slot Foto */
+.photo-container{
+    width:100%;
+    display:flex;
+    justify-content:center;
+    margin-bottom:30px;
+}
+
+.photo-container img{
+    width:700px;
+    height:350px;
+    object-fit:cover;
+    border:5px solid white;
+    border-radius:8px;
+    box-shadow:0 5px 15px rgba(0,0,0,0.25);
+}
+
+/* Contact Box */
+.contact-box{
+    background:#f8f1cf;
+    padding:30px;
+    text-align:center;
+}
+
+.contact-box h2{
+    color:#222;
+    font-size:32px;
+    margin-bottom:15px;
+}
+
+.contact-box p{
+    color:#333;
+    font-size:18px;
+    line-height:1.8;
+}
+
+/* Responsive */
+@media screen and (max-width:950px){
+
+    .main-container{
+        width:100%;
+    }
+
+    .photo-container img{
+        width:100%;
+        height:auto;
+    }
+
+    .support-text{
+        font-size:22px;
+    }
+
+    .contact-box h2{
+        font-size:24px;
+    }
+
+    .contact-box p{
+        font-size:15px;
+    }
+}
