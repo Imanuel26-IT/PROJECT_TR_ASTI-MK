@@ -17,8 +17,6 @@ body{
     margin:auto;
 }
 
-/* Sidebar */
-
 .sidebar{
     width:260px;
     border:2px solid #222;
@@ -76,9 +74,6 @@ body{
 .logout-btn:hover{
     opacity:.8;
 }
-
-/* Content */
-
 .content{
     flex:1;
     border:2px solid #222;
@@ -100,8 +95,6 @@ body{
     height:80%;
     text-align:center;
 }
-
-/* SLOT FOTO */
 
 .image-slot{
     width:320px;
@@ -134,8 +127,6 @@ body{
     font-size:18px;
     line-height:1.5;
 }
-
-/* Responsive */
 
 @media(max-width:900px){
 
