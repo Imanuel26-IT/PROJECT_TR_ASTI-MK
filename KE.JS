@@ -1,0 +1,115 @@
+// Custom Message Box Function (Menggantikan alert bawaan)
+function showMessage(text) {
+    document.getElementById('customMessageText').innerText = text;
+    document.getElementById('customMessageBox').style.display = 'flex';
+}
+
+function closeMessageBox() {
+    document.getElementById('customMessageBox').style.display = 'none';
+}
+
+// Language Modal Functions
+function openLangModal() {
+    document.getElementById('languageModalOverlay').style.display = 'flex';
+}
+
+function closeLangModal() {
+    document.getElementById('languageModalOverlay').style.display = 'none';
+}
+
+// Login Modal Functions
+function openLoginModal() {
+    document.getElementById('loginModalOverlay').style.display = 'flex';
+}
+
+function closeLoginModal() {
+    document.getElementById('loginModalOverlay').style.display = 'none';
+}
+
+function closeModalOnOutsideClick(event) {
+    if (event.target.id === 'languageModalOverlay') {
+        closeLangModal();
+    }
+    if (event.target.id === 'loginModalOverlay') {
+        closeLoginModal();
+    }
+}
+
+function confirmLanguage() {
+    // Ambil bahasa yang dipilih dari radio button
+    const selectedLang = document.querySelector('input[name="language"]:checked').value;
+    
+    // Ubah teks di Navbar
+    document.getElementById('currentLang').innerText = selectedLang;
+    
+    // Tutup Modal
+    closeLangModal();
+    
+    // Tampilkan pesan konfirmasi
+    const langName = selectedLang === 'ID' ? 'Indonesia' : 'English';
+    showMessage(`Bahasa berhasil diubah menjadi: ${langName}`);
+}
+
+function processLogin() {
+    const phone = document.getElementById('loginPhoneInput').value.trim();
+    if(!phone) {
+        showMessage("Silakan masukkan nomor telepon Anda.");
+        return;
+    }
+    closeLoginModal();
+    showMessage(`Login/Daftar diproses untuk nomor: +62 ${phone}`);
+}
+
+function processGoogleLogin() {
+    closeLoginModal();
+    showMessage("Mengarahkan ke sistem login Google...");
+}
+
+// Destination Dropdown Functions
+function toggleDestDropdown() {
+    const dropdown = document.getElementById('tujuanDropdown');
+    dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
+}
+
+function selectDestination(value) {
+    document.getElementById('tujuan').value = value;
+    document.getElementById('tujuanDropdown').style.display = 'none';
+}
+
+// Menutup dropdown jika user mengklik area di luar dropdown
+document.addEventListener('click', function(event) {
+    const dropdown = document.getElementById('tujuanDropdown');
+    const inputTujuan = document.getElementById('tujuan');
+    if (dropdown && event.target !== inputTujuan && !dropdown.contains(event.target)) {
+        dropdown.style.display = 'none';
+    }
+});
+
+// Script bawaan yang sudah dimodifikasi untuk menghindari alert()
+document.addEventListener('DOMContentLoaded', function() {
+    // 1. Otomatis mengisi tanggal pergi ke tanggal hari ini
+    const tglPergiInput = document.getElementById('tglPergi');
+    if (tglPergiInput) {
+        const hariIni = new Date().toISOString().split('T')[0];
+        tglPergiInput.value = hariIni;
+    }
+
+    // 2. klik pada tombol "Cari Bus"
+    const btnCari = document.getElementById('btnCari');
+    if (btnCari) {
+        btnCari.addEventListener('click', function() {
+            const asal = document.getElementById('asal').value.trim();
+            const tujuan = document.getElementById('tujuan').value.trim();
+            const tanggal = document.getElementById('tglPergi').value;
+
+            // Validasi input jika kosong
+            if (!asal || !tujuan) {
+                showMessage('Silakan masukkan lokasi Asal dan Tujuan terlebih dahulu!');
+                return;
+            }
+
+            // Simulasi proses pencarian tiket menggunakan custom message box
+            showMessage(`Mencari tiket bus aktif...\n\nRute: ${asal} ➔ ${tujuan}\nTanggal Keberangkatan: ${tanggal}`);
+        });
+    }
+});
