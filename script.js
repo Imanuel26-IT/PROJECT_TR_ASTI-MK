@@ -1,278 +1,238 @@
-/* =============================================
-   LBus — Bus Ticket Booking Script
-   ============================================= */
+// ===== script.js =====
 
-   "use strict";
+// ===== VARIABEL GLOBAL =====
+let isLoggedIn = false;
+let currentUser = "";
 
-   const state = {
-     selectedSeats: [],
-     toastTimer: null,
-   };
-   
-   const PRICE_PER_SEAT = 250000;
-   const INSURANCE_PER_SEAT = 5000;
-   const BOOKING_KEY = "lbus_booking";
-   
-   function formatRupiah(num) {
-     return "Rp " + num.toLocaleString("id-ID");
-   }
-   
-   /* ---------- Booking state (dipakai lintas halaman) ---------- */
-   function saveBooking(data) {
-     try {
-       localStorage.setItem(BOOKING_KEY, JSON.stringify(data));
-     } catch (e) {
-       /* ignore */
-     }
-   }
-   
-   function loadBooking() {
-     try {
-       return JSON.parse(localStorage.getItem(BOOKING_KEY));
-     } catch (e) {
-       return null;
-     }
-   }
-   
-   function getBookingState() {
-     const saved = loadBooking();
-     if (saved && Array.isArray(saved.seats) && saved.seats.length) {
-       return {
-         seats: saved.seats,
-         seatCount: saved.seats.length,
-         insurance: typeof saved.insurance === "boolean" ? saved.insurance : true,
-       };
-     }
-     return { seats: ["1A"], seatCount: 1, insurance: true };
-   }
-   
-   function computeTotal(seatCount, insurance) {
-     const seatTotal = seatCount * PRICE_PER_SEAT;
-     const insuranceTotal = insurance ? seatCount * INSURANCE_PER_SEAT : 0;
-     return seatTotal + insuranceTotal;
-   }
-   
-   function showToast(msg) {
-     const toast = document.getElementById("toast");
-     if (!toast) return;
-     clearTimeout(state.toastTimer);
-     toast.textContent = msg;
-     toast.classList.add("show");
-     state.toastTimer = setTimeout(() => {
-       toast.classList.remove("show");
-     }, 2500);
-   }
-   
-   function updateBottomBar() {
-     const bottomBar = document.getElementById('bottomBar');
-     const seatCount = document.getElementById('seatCount');
-     const seatNumber = document.getElementById('seatNumber');
-     const seatPrice = document.getElementById('seatPrice');
-     const payBtn = document.getElementById('payBtn');
-   
-     const count = state.selectedSeats.length;
-   
-     if (count > 0) {
-       bottomBar?.classList.add('active');
-       if (seatCount) seatCount.textContent = count + " Kursi";
-       if (seatNumber) seatNumber.textContent = state.selectedSeats.map(s => "S No." + s).join(', ');
-       if (seatPrice) seatPrice.textContent = formatRupiah(count * PRICE_PER_SEAT);
-       if (payBtn) {
-         payBtn.style.pointerEvents = 'auto';
-         payBtn.style.opacity = '1';
-       }
-     } else {
-       bottomBar?.classList.remove('active');
-       if (payBtn) {
-         payBtn.style.pointerEvents = 'none';
-         payBtn.style.opacity = '0.5';
-       }
-     }
-   }
-   
-   function initSeatSelection() {
-     const seats = document.querySelectorAll('.seat.available');
-     if (!seats.length) return;
-   
-     seats.forEach(seat => {
-       seat.addEventListener('click', function() {
-         const seatId = this.dataset.seat;
-   
-         if (this.classList.contains('selected')) {
-           this.classList.remove('selected');
-           state.selectedSeats = state.selectedSeats.filter(s => s !== seatId);
-           showToast('Kursi ' + seatId + ' dibatalkan');
-         } else {
-           this.classList.add('selected');
-           state.selectedSeats.push(seatId);
-           showToast('Kursi ' + seatId + ' dipilih');
-         }
-   
-         saveBooking({ seats: state.selectedSeats, insurance: true });
-         updateBottomBar();
-       });
-     });
-   
-     const payBtn = document.getElementById('payBtn');
-     if (payBtn) {
-       payBtn.style.pointerEvents = 'none';
-       payBtn.style.opacity = '0.5';
-     }
-   }
-   
-   function initFacilitiesToggle() {
-     const toggle = document.querySelector('.facilities-toggle');
-     const list = document.querySelector('.facilities-list');
-     if (!toggle || !list) return;
-   
-     toggle.addEventListener('click', function() {
-       const expanded = list.classList.toggle('expanded');
-   
-       if (expanded) {
-         this.innerHTML = 'Sembunyikan fasilitas <i class="ti ti-chevron-up"></i>';
-       } else {
-         this.innerHTML = 'Lihat semua fasilitas <i class="ti ti-chevron-down"></i>';
-       }
-     });
-   }
-   
-   /* Toggle payment group expand/collapse */
-   function toggleGroup(header) {
-     const body = header.nextElementSibling;
-     const icon = header.querySelector('.toggle-icon');
-   
-     if (!body) return;
-   
-     if (body.classList.contains('open')) {
-       body.classList.remove('open');
-       body.style.maxHeight = '0';
-       header.classList.remove('open');
-     } else {
-       body.classList.add('open');
-       body.style.maxHeight = body.scrollHeight + 'px';
-       header.classList.add('open');
-     }
-   }
-   
-   /* Copy VA number to clipboard */
-   function copyVA() {
-     const vaNumber = document.getElementById('vaNumber');
-     const copyBtn = document.querySelector('.copy-btn');
-   
-     if (!vaNumber) return;
-   
-     const text = vaNumber.textContent.trim();
-   
-     navigator.clipboard.writeText(text).then(() => {
-       if (copyBtn) {
-         copyBtn.classList.add('copied');
-         copyBtn.innerHTML = '<i class="ti ti-check"></i>';
-         showToast('Nomor VA berhasil disalin!');
-   
-         setTimeout(() => {
-           copyBtn.classList.remove('copied');
-           copyBtn.innerHTML = '<i class="ti ti-copy"></i>';
-         }, 2000);
-       }
-     }).catch(() => {
-       // Fallback for older browsers
-       const textarea = document.createElement('textarea');
-       textarea.value = text;
-       textarea.style.position = 'fixed';
-       textarea.style.opacity = '0';
-       document.body.appendChild(textarea);
-       textarea.select();
-       document.execCommand('copy');
-       document.body.removeChild(textarea);
-       showToast('Nomor VA berhasil disalin!');
-     });
-   }
-   
-   /* Initialize payment groups */
-   function initPaymentGroups() {
-     const groups = document.querySelectorAll('.payment-group-body');
-     groups.forEach(body => {
-       if (body.classList.contains('open')) {
-         body.style.maxHeight = body.scrollHeight + 'px';
-       } else {
-         body.style.maxHeight = '0';
-       }
-     });
-   }
-   
-   /* Print ticket */
-   function printTicket() {
-     window.print();
-   }
-   
-   /* Sinkronkan jumlah kursi & harga total (termasuk asuransi) di halaman
-      page3 s/d page7. Fungsi ini aman dipanggil di semua halaman karena
-      hanya menyentuh elemen yang benar-benar ada di DOM. */
-   function initBookingSummary() {
-     // Jangan jalan di page1 — di sana harga sudah ditangani updateBottomBar()
-     // berdasarkan seleksi kursi yang sedang berlangsung, bukan booking tersimpan.
-     if (document.getElementById('seatCount')) return;
-   
-     const booking = getBookingState();
-     let insurance = booking.insurance;
-   
-     // Update teks jumlah kursi (booking-summary & tiket)
-     document.querySelectorAll('.summary-seat span').forEach(el => {
-       el.textContent = booking.seatCount + ' Kursi';
-     });
-   
-     const bottomSub = document.querySelector('.bottom-sub');
-     if (bottomSub && bottomSub.textContent.includes('Kursi')) {
-       bottomSub.textContent = booking.seatCount + ' Kursi, termasuk biaya layanan';
-     }
-   
-     const busType = document.querySelector('.bus-type');
-     if (busType) {
-       busType.textContent = 'Executive Bus 2+2 - ' + booking.seatCount + ' Kursi';
-     }
-   
-     function refreshPrice() {
-       const total = computeTotal(booking.seatCount, insurance);
-   
-       document.querySelectorAll('.bottom-bar .seat-price').forEach(el => {
-         el.textContent = formatRupiah(total);
-       });
-   
-       const vaAmount = document.querySelector('.va-amount');
-       if (vaAmount) vaAmount.textContent = formatRupiah(total);
-   
-       const ticketPrice = document.querySelector('.detail-value.price');
-       if (ticketPrice) ticketPrice.textContent = 'RP ' + total.toLocaleString('id-ID');
-   
-       saveBooking({ seats: booking.seats, insurance });
-     }
-   
-     const insuranceCheckbox = document.querySelector('.insurance-toggle input[type="checkbox"]');
-     if (insuranceCheckbox) {
-       insuranceCheckbox.checked = insurance;
-       insuranceCheckbox.addEventListener('change', () => {
-         insurance = insuranceCheckbox.checked;
-         refreshPrice();
-       });
-     }
-   
-     refreshPrice();
-   }
-   
-   /* Toggle checkbox pilih penumpang */
-   function initPassengerCheck() {
-     const checks = document.querySelectorAll('.passenger-check');
-     checks.forEach(btn => {
-       btn.addEventListener('click', function() {
-         this.classList.toggle('checked');
-       });
-     });
-   }
-   
-   document.addEventListener("DOMContentLoaded", () => {
-     initSeatSelection();
-     initFacilitiesToggle();
-     initPaymentGroups();
-     initBookingSummary();
-     initPassengerCheck();
-   });
+// ===== CUSTOM MESSAGE BOX =====
+function showMessage(text) {
+    document.getElementById('customMessageText').innerText = text;
+    document.getElementById('customMessageBox').style.display = 'flex';
+}
+
+function closeMessageBox() {
+    document.getElementById('customMessageBox').style.display = 'none';
+}
+
+// ===== PROFIL VIEW =====
+function openProfileView() {
+    document.getElementById('profileViewOverlay').style.display = 'block';
+    document.body.style.overflow = 'hidden';
+}
+
+function closeProfileView() {
+    document.getElementById('profileViewOverlay').style.display = 'none';
+    document.body.style.overflow = 'auto';
+    switchTab('info');
+}
+
+// ===== TAB AKUN =====
+function switchTab(tabName) {
+    const tabs = ['info', 'pemesanan', 'payment', 'rekening', 'negara', 'mata-uang'];
+    tabs.forEach(t => {
+        const tabEl = document.getElementById('tab-' + t);
+        const contentEl = document.getElementById('content-' + t);
+        if (tabEl) tabEl.classList.remove('active');
+        if (contentEl) contentEl.style.display = 'none';
+    });
+
+    const selectedTab = document.getElementById('tab-' + tabName);
+    const selectedContent = document.getElementById('content-' + tabName);
+    if (selectedTab) selectedTab.classList.add('active');
+    if (selectedContent) selectedContent.style.display = 'block';
+}
+
+// ===== LANGUAGE MODAL =====
+function openLangModal() {
+    document.getElementById('languageModalOverlay').style.display = 'flex';
+}
+
+function closeLangModal() {
+    document.getElementById('languageModalOverlay').style.display = 'none';
+}
+
+function confirmLanguage() {
+    const selectedLang = document.querySelector('input[name="language"]:checked').value;
+    document.getElementById('currentLang').innerText = selectedLang;
+    closeLangModal();
+    const langName = selectedLang === 'ID' ? 'Indonesia' : 'English';
+    showMessage('Bahasa berhasil diubah menjadi: ' + langName);
+}
+
+// ===== LOGIN / LOGOUT =====
+function handleAkunClick() {
+    if (isLoggedIn) {
+        openProfileView();
+    } else {
+        openLoginModal();
+    }
+}
+
+function openLoginModal() {
+    document.getElementById('loginModalOverlay').style.display = 'flex';
+}
+
+function closeLoginModal() {
+    document.getElementById('loginModalOverlay').style.display = 'none';
+}
+
+function openLogoutModal() {
+    document.getElementById('logoutModalOverlay').style.display = 'flex';
+}
+
+function closeLogoutModal() {
+    document.getElementById('logoutModalOverlay').style.display = 'none';
+}
+
+function processLogin() {
+    const phone = document.getElementById('loginPhoneInput').value.trim();
+    if (!phone) {
+        showMessage('Silakan masukkan nomor telepon Anda.');
+        return;
+    }
+
+    isLoggedIn = true;
+    currentUser = '+62 ' + phone;
+    document.getElementById('akunToggle').innerHTML = '👤 ' + currentUser;
+
+    document.getElementById('profileKontak').value = currentUser;
+    document.getElementById('profileNama').value = '';
+    document.getElementById('profileEmail').value = '';
+
+    closeLoginModal();
+    showMessage('Berhasil login dengan nomor:\n+62 ' + phone);
+}
+
+function processGoogleLogin() {
+    closeLoginModal();
+    document.getElementById('googleLoginOverlay').style.display = 'flex';
+}
+
+function closeGoogleModal() {
+    document.getElementById('googleLoginOverlay').style.display = 'none';
+}
+
+function selectGoogleAccount(userName) {
+    isLoggedIn = true;
+    currentUser = userName;
+
+    document.getElementById('profileNama').value = userName;
+    document.getElementById('profileEmail').value = 'budi.santoso@gmail.com';
+    document.getElementById('profileKontak').value = '';
+
+    closeGoogleModal();
+    document.getElementById('akunToggle').innerHTML = '👤 ' + userName;
+    showMessage('Berhasil login menggunakan akun Google:\n' + userName);
+}
+
+function processLogout() {
+    isLoggedIn = false;
+    currentUser = '';
+    document.getElementById('akunToggle').innerHTML = '👤 Akun';
+    document.getElementById('loginPhoneInput').value = '';
+    closeLogoutModal();
+    closeProfileView();
+    showMessage('Anda telah berhasil keluar (Logout).');
+}
+
+// ===== MODAL OUTSIDE CLICK =====
+function closeModalOnOutsideClick(event) {
+    if (event.target.id === 'languageModalOverlay') closeLangModal();
+    if (event.target.id === 'loginModalOverlay') closeLoginModal();
+    if (event.target.id === 'googleLoginOverlay') closeGoogleModal();
+    if (event.target.id === 'logoutModalOverlay') closeLogoutModal();
+}
+
+// ===== DROPDOWN ASAL / TUJUAN =====
+function toggleAsalDropdown() {
+    const dropdown = document.getElementById('asalDropdown');
+    document.getElementById('tujuanDropdown').style.display = 'none';
+    dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
+}
+
+function selectOrigin(value) {
+    document.getElementById('asal').value = value;
+    document.getElementById('asalDropdown').style.display = 'none';
+}
+
+function toggleDestDropdown() {
+    const dropdown = document.getElementById('tujuanDropdown');
+    document.getElementById('asalDropdown').style.display = 'none';
+    dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
+}
+
+function selectDestination(value) {
+    document.getElementById('tujuan').value = value;
+    document.getElementById('tujuanDropdown').style.display = 'none';
+}
+
+// Tutup dropdown saat klik di luar
+document.addEventListener('click', function(event) {
+    const tujuanDropdown = document.getElementById('tujuanDropdown');
+    const inputTujuan = document.getElementById('tujuan');
+    if (tujuanDropdown && event.target !== inputTujuan && !tujuanDropdown.contains(event.target)) {
+        tujuanDropdown.style.display = 'none';
+    }
+
+    const asalDropdown = document.getElementById('asalDropdown');
+    const inputAsal = document.getElementById('asal');
+    if (asalDropdown && event.target !== inputAsal && !asalDropdown.contains(event.target)) {
+        asalDropdown.style.display = 'none';
+    }
+});
+
+// ===== DOMContentLoaded =====
+document.addEventListener('DOMContentLoaded', function() {
+
+    // ===== FORM PROFIL =====
+    const profileForm = document.getElementById('profileForm');
+    if (profileForm) {
+        profileForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const nama = document.getElementById('profileNama').value;
+            const tanggalLahir = document.getElementById('profileTanggalLahir').value;
+            const kontak = document.getElementById('profileKontak').value;
+            const email = document.getElementById('profileEmail').value;
+            const gender = document.querySelector('input[name="profileGender"]:checked');
+
+            if (nama === '' || tanggalLahir === '' || kontak === '' || email === '' || !gender) {
+                showMessage('Mohon lengkapi semua data profil Anda!');
+                return;
+            }
+
+            showMessage(
+                'Data berhasil disimpan!\n\n' +
+                'Nama: ' + nama + '\n' +
+                'Tanggal Lahir: ' + tanggalLahir + '\n' +
+                'Jenis Kelamin: ' + gender.value + '\n' +
+                'Kontak: ' + kontak + '\n' +
+                'Email: ' + email
+            );
+        });
+    }
+
+    // ===== TANGGAL PERGI (otomatis hari ini) =====
+    const tglPergiInput = document.getElementById('tglPergi');
+    if (tglPergiInput) {
+        const hariIni = new Date().toISOString().split('T')[0];
+        tglPergiInput.value = hariIni;
+    }
+
+    // ===== TOMBOL CARI BUS =====
+    const btnCari = document.getElementById('btnCari');
+    if (btnCari) {
+        btnCari.addEventListener('click', function() {
+            const asal = document.getElementById('asal').value.trim();
+            const tujuan = document.getElementById('tujuan').value.trim();
+            const tanggal = document.getElementById('tglPergi').value;
+
+            if (!asal || !tujuan) {
+                showMessage('Silakan masukkan lokasi Asal dan Tujuan terlebih dahulu!');
+                return;
+            }
+
+            showMessage('Mencari tiket bus aktif...\n\nRute: ' + asal + ' ➔ ' + tujuan + '\nTanggal Keberangkatan: ' + tanggal);
+        });
+    }
+});
