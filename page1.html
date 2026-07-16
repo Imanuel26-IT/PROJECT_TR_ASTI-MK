@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pemilihan Kursi - LBus</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css" />
+</head>
+<body>
+
+  <!-- Toast -->
+  <div id="toast" class="toast"></div>
+
+  <!-- Header -->
+  <header class="page-header">
+    <button class="back-btn" onclick="history.back()">
+      <i class="ti ti-x"></i>
+    </button>
+    <div class="route-info">
+      <span class="route-from">Terminal Tingkir, Salatiga</span>
+      <i class="ti ti-arrow-right"></i>
+      <span class="route-to">Terminal Pulo Gebang, Jakarta</span>
+    </div>
+  </header>
+
+  <main class="page-main">
+    <!-- Left: Trip Info -->
+    <div class="trip-panel">
+      <!-- Titik Naik -->
+      <div class="trip-section">
+        <h3 class="trip-label">Titik Naik</h3>
+        <div class="trip-detail">
+          <div class="trip-city">Salatiga</div>
+          <div class="trip-stop">
+            <div class="stop-time-col">
+              <div class="stop-time">06:00</div>
+              <div class="stop-date">3 Jul</div>
+            </div>
+            <div class="stop-info-col">
+              <div class="stop-name">Terminal Tingkir</div>
+              <div class="stop-address">Jalan Soekarno Hatta RT 01 RW 06 Terminal Tingkir Salatiga No. 15</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="trip-divider"></div>
+
+      <!-- Titik Turun -->
+      <div class="trip-section">
+        <h3 class="trip-label">Titik Turun</h3>
+        <div class="trip-detail">
+          <div class="trip-city">Jakarta</div>
+          <div class="trip-stop">
+            <div class="stop-time-col">
+              <div class="stop-time">08:00</div>
+              <div class="stop-date">3 Jul</div>
+            </div>
+            <div class="stop-info-col">
+              <div class="stop-name">Bambu Apus</div>
+              <div class="stop-address">Jl. Bambu Kuning Utara No.2, RT.7/RW.2, Bambu Apus, Kota Jakarta Timur</div>
+            </div>
+          </div>
+          <div class="trip-stop">
+            <div class="stop-time-col">
+              <div class="stop-time">10:00</div>
+              <div class="stop-date">3 Jul</div>
+            </div>
+            <div class="stop-info-col">
+              <div class="stop-name">Pasar Rebo</div>
+              <div class="stop-address">Jl. TB Simatupang No.79, RT.5/RW.5, Daerah Khusus Ibukota Jakarta 13830</div>
+            </div>
+          </div>
+          <div class="trip-stop">
+            <div class="stop-time-col">
+              <div class="stop-time">12:00</div>
+              <div class="stop-date">3 Jul</div>
+            </div>
+            <div class="stop-info-col">
+              <div class="stop-name">Terminal Pulo Gebang</div>
+              <div class="stop-address">Jl. Selejar Tol Sisi Timur Km.2, RT.11/RW.6, Pulo Gebang, Jakarta 13950</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="trip-divider"></div>
+
+      <!-- Tempat Istirahat -->
+      <div class="trip-section">
+        <h3 class="trip-label">Tempat istirahat</h3>
+        <div class="rest-stop">
+          <div class="rest-name">Kendil Mas Restaurant</div>
+          <div class="rest-time">11:00 <span class="rest-duration">30 Menit berhenti</span></div>
+        </div>
+      </div>
+
+      <div class="trip-divider"></div>
+
+      <!-- Fasilitas -->
+      <div class="trip-section">
+        <h3 class="trip-label">9 fasilitas</h3>
+        <div class="facilities-list">
+          <div class="facility-item"><i class="ti ti-droplet"></i> Botol Minum</div>
+          <div class="facility-item"><i class="ti ti-bed"></i> Selimut</div>
+          <div class="facility-item"><i class="ti ti-cookie"></i> Cemilan</div>
+          <div class="facility-item"><i class="ti ti-armchair"></i> Bantal</div>
+          <div class="facility-item"><i class="ti ti-device-tv"></i> TV Pribadi</div>
+          <div class="facility-item facility-extra"><i class="ti ti-wifi"></i> WiFi</div>
+          <div class="facility-item facility-extra"><i class="ti ti-plug"></i> Charger USB</div>
+          <div class="facility-item facility-extra"><i class="ti ti-toilet-paper"></i> Toilet</div>
+          <div class="facility-item facility-extra"><i class="ti ti-air-conditioning"></i> AC</div>
+        </div>
+        <button class="facilities-toggle">Lihat semua fasilitas <i class="ti ti-chevron-down"></i></button>
+      </div>
+    </div>
+
+    <!-- Right: Seat Map -->
+    <div class="seat-panel">
+      <div class="seat-legend">
+        <div class="legend-item">
+          <div class="legend-seat occupied"></div>
+          <span>Terisi</span>
+        </div>
+        <div class="legend-item">
+          <div class="legend-seat available"></div>
+          <span>Tersedia</span>
+        </div>
+      </div>
+
+      <div class="bus-layout">
+        <div class="bus-body">
+          <!-- Row 1 -->
+          <div class="seat-row" data-row="1">
+            <div class="seat available" data-seat="1A"><i class="ti ti-armchair"></i></div>
+            <div class="seat available" data-seat="1B"><i class="ti ti-armchair"></i></div>
+            <div class="seat-aisle"></div>
+            <div class="seat available" data-seat="1C"><i class="ti ti-armchair"></i></div>
+            <div class="seat available" data-seat="1D"><i class="ti ti-armchair"></i></div>
+          </div>
+          <!-- Row 2 - OCCUPIED (2A, 2B) -->
+          <div class="seat-row" data-row="2">
+            <div class="seat occupied" data-seat="2A"><i class="ti ti-armchair"></i></div>
+            <div class="seat occupied" data-seat="2B"><i class="ti ti-armchair"></i></div>
+            <div class="seat-aisle"></div>
+            <div class="seat available" data-seat="2C"><i class="ti ti-armchair"></i></div>
+            <div class="seat available" data-seat="2D"><i class="ti ti-armchair"></i></div>
+          </div>
+          <!-- Row 3 - OCCUPIED (3C, 3D) -->
+          <div class="seat-row" data-row="3">
+            <div class="seat available" data-seat="3A"><i class="ti ti-armchair"></i></div>
+            <div class="seat available" data-seat="3B"><i class="ti ti-armchair"></i></div>
+            <div class="seat-aisle"></div>
+            <div class="seat occupied" data-seat="3C"><i class="ti ti-armchair"></i></div>
+            <div class="seat occupied" data-seat="3D"><i class="ti ti-armchair"></i></div>
+          </div>
+          <!-- Row 4 -->
+          <div class="seat-row" data-row="4">
+            <div class="seat available" data-seat="4A"><i class="ti ti-armchair"></i></div>
+            <div class="seat available" data-seat="4B"><i class="ti ti-armchair"></i></div>
+            <div class="seat-aisle"></div>
+            <div class="seat available" data-seat="4C"><i class="ti ti-armchair"></i></div>
+            <div class="seat available" data-seat="4D"><i class="ti ti-armchair"></i></div>
+          </div>
+          <!-- Row 5 -->
+          <div class="seat-row" data-row="5">
+            <div class="seat available" data-seat="5A"><i class="ti ti-armchair"></i></div>
+            <div class="seat available" data-seat="5B"><i class="ti ti-armchair"></i></div>
+            <div class="seat-aisle"></div>
+            <div class="seat available" data-seat="5C"><i class="ti ti-armchair"></i></div>
+            <div class="seat available" data-seat="5D"><i class="ti ti-armchair"></i></div>
+          </div>
+          <!-- Row 6 -->
+          <div class="seat-row" data-row="6">
+            <div class="seat available" data-seat="6A"><i class="ti ti-armchair"></i></div>
+            <div class="seat available" data-seat="6B"><i class="ti ti-armchair"></i></div>
+            <div class="seat-aisle"></div>
+            <div class="seat available" data-seat="6C"><i class="ti ti-armchair"></i></div>
+            <div class="seat available" data-seat="6D"><i class="ti ti-armchair"></i></div>
+          </div>
+          <!-- Row 7 -->
+          <div class="seat-row" data-row="7">
+            <div class="seat available" data-seat="7A"><i class="ti ti-armchair"></i></div>
+            <div class="seat available" data-seat="7B"><i class="ti ti-armchair"></i></div>
+            <div class="seat-aisle"></div>
+            <div class="seat available" data-seat="7C"><i class="ti ti-armchair"></i></div>
+            <div class="seat available" data-seat="7D"><i class="ti ti-armchair"></i></div>
+          </div>
+          <!-- Row 8 -->
+          <div class="seat-row" data-row="8">
+            <div class="seat available" data-seat="8A"><i class="ti ti-armchair"></i></div>
+            <div class="seat available" data-seat="8B"><i class="ti ti-armchair"></i></div>
+            <div class="seat-aisle"></div>
+            <div class="seat available" data-seat="8C"><i class="ti ti-armchair"></i></div>
+            <div class="seat available" data-seat="8D"><i class="ti ti-armchair"></i></div>
+          </div>
+          <!-- Row 9 -->
+          <div class="seat-row" data-row="9">
+            <div class="seat available" data-seat="9A"><i class="ti ti-armchair"></i></div>
+            <div class="seat available" data-seat="9B"><i class="ti ti-armchair"></i></div>
+            <div class="seat-aisle"></div>
+            <div class="seat available" data-seat="9C"><i class="ti ti-armchair"></i></div>
+            <div class="seat available" data-seat="9D"><i class="ti ti-armchair"></i></div>
+          </div>
+          <!-- Row 10 -->
+          <div class="seat-row" data-row="10">
+            <div class="seat available" data-seat="10A"><i class="ti ti-armchair"></i></div>
+            <div class="seat available" data-seat="10B"><i class="ti ti-armchair"></i></div>
+            <div class="seat-aisle"></div>
+            <div class="seat available" data-seat="10C"><i class="ti ti-armchair"></i></div>
+            <div class="seat available" data-seat="10D"><i class="ti ti-armchair"></i></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Bottom Bar -->
+  <div class="bottom-bar" id="bottomBar">
+    <div class="bottom-info">
+      <span class="seat-count" id="seatCount">0 Kursi</span>
+      <span class="seat-number" id="seatNumber">-</span>
+      <span class="seat-price" id="seatPrice">Rp 0</span>
+    </div>
+    <a href="page3.html" class="pay-btn" id="payBtn">
+      Bayar Sekarang
+    </a>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
