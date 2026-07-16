@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LBus - Tempat Pemesanan Tiket Nomor 1 di Indonesia</title>
+    <!-- CSS terpisah -->
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+    <!-- ===== TOP PROMO BAR ===== -->
+    <div class="top-promo-bar">
+        Dapatkan POTONGAN 10% di Aplikasi LBus! Gunakan kode <b>PRIMER</b> di Aplikasi.
+        <button style="padding:2px 8px; font-size:11px; cursor:pointer;">Unduh Aplikasi</button>
+    </div>
+
+    <!-- ===== HEADER ===== -->
+    <header>
+        <div class="container navbar">
+            <div class="logo">
+                <img src="logolbus.jpg" alt="LBus" width="120"
+                     onerror="this.src='https://placehold.co/120x40/1e3d59/white?text=LBus'" />
+                <img src="tiketbus.jpg" alt="Tiket" class="navbar-logo" width="40"
+                     onerror="this.src='https://placehold.co/40x40/ccc/333?text=Bus'" />
+            </div>
+            <ul class="nav-links">
+                <li><a id="langToggle" onclick="openLangModal()">🌐 <span id="currentLang">ID</span></a></li>
+                <li><a href="#">❓ Help</a></li>
+                <li><a href="#">🎫 Tunjukkan Tiket Saya</a></li>
+                <li><a id="akunToggle" onclick="handleAkunClick()">👤 Akun</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <!-- ===== HERO / SEARCH ===== -->
+    <section class="hero">
+        <div class="container">
+            <h1>Tempat Pemesanan Tiket Nomor 1 di Indonesia</h1>
+            <div class="search-box">
+                <!-- Asal -->
+                <div class="input-group">
+                    <label for="asal">Dari</label>
+                    <input type="text" id="asal" placeholder="Tempat Berangkat" readonly
+                           onclick="toggleAsalDropdown()" style="cursor:pointer;" />
+                    <div id="asalDropdown" class="destination-dropdown">
+                        <div class="dest-item" onclick="selectOrigin('Terminal Solo')">Terminal Solo</div>
+                        <div class="dest-item" onclick="selectOrigin('Terminal Jakarta')">Terminal Jakarta</div>
+                        <div class="dest-item" onclick="selectOrigin('Terminal Kudus')">Terminal Kudus</div>
+                        <div class="dest-item" onclick="selectOrigin('Terminal Salatiga')">Terminal Salatiga</div>
+                    </div>
+                </div>
+                <!-- Tujuan -->
+                <div class="input-group">
+                    <label for="tujuan">Ke</label>
+                    <input type="text" id="tujuan" placeholder="Tempat Tujuan" readonly
+                           onclick="toggleDestDropdown()" style="cursor:pointer;" />
+                    <div id="tujuanDropdown" class="destination-dropdown">
+                        <div class="dest-item" onclick="selectDestination('Terminal Semarang')">Terminal Semarang</div>
+                        <div class="dest-item" onclick="selectDestination('Terminal Jakarta')">Terminal Jakarta</div>
+                        <div class="dest-item" onclick="selectDestination('Terminal Surabaya')">Terminal Surabaya</div>
+                        <div class="dest-item" onclick="selectDestination('Terminal Salatiga')">Terminal Salatiga</div>
+                    </div>
+                </div>
+                <!-- Tanggal Pergi -->
+                <div class="input-group">
+                    <label for="tglPergi">Tanggal Pergi</label>
+                    <input type="date" id="tglPergi" />
+                </div>
+                <!-- Tanggal Pulang -->
+                <div class="input-group">
+                    <label for="tglPulang">Tanggal Pulang (Opsional)</label>
+                    <input type="date" id="tglPulang" />
+                </div>
+                <button class="btn-search" id="btnCari">🔍 Cari Bus</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== MAIN ===== -->
+    <main class="container">
+        <!-- Mitra -->
+        <div class="section-title">Mitra Perusahaan Bus</div>
+        <div class="section-box mitra-container">
+            <img src="mitra_sinarjaya.jpg" alt="Sinar Jaya"
+                 onerror="this.src='https://placehold.co/100x40/eee/333?text=Sinar+Jaya'" />
+            <img src="mitra_unicorn.jpg" alt="Unicorn Indorent"
+                 onerror="this.src='https://placehold.co/100x40/eee/333?text=Unicorn'" />
+            <img src="mitra_Haryanto.jpg" alt="Haryanto"
+                 onerror="this.src='https://placehold.co/100x40/eee/333?text=Haryanto'" />
+            <img src="mitra_rosaliaindah.jpg" alt="Rosalia Indah"
+                 onerror="this.src='https://placehold.co/100x40/eee/333?text=Rosalia'" />
+        </div>
+
+        <!-- Promo -->
+        <div class="section-title">Penawaran Untuk Anda</div>
+        <div class="section-box promo-container">
+            <div class="promo-card">
+                <a href="#"><img src="promonav.jpg" alt="Promo Diskon 25%"
+                                 onerror="this.src='https://placehold.co/400x200/ffcccc/red?text=Promo+25%25'" /></a>
+            </div>
+            <div class="promo-card">
+                <a href="#"><img src="promopakailagi.jpg" alt="Promo Diskon 5%"
+                                 onerror="this.src='https://placehold.co/400x200/fff9db/orange?text=Promo+5%25'" /></a>
+            </div>
+        </div>
+
+        <!-- Info -->
+        <div class="info-text">
+            <h3>Pesan Tiket Bus Online Lebih Mudah dan Lebih Cepat melalui LBus!</h3>
+            <p>Butuh tiket bus ke seluruh Indonesia? LBus adalah solusinya! Sebagai agregator bus global, LBus menyediakan layanan perjalanan bus dari dan ke berbagai kota di Indonesia, seperti Jakarta, Bandung, Yogyakarta, Surabaya, Bali, dan lain-lain. Kami bermitra dengan sejumlah operator bus untuk menawarkan pemesanan tiket bus secara online kapan saja dan di mana saja, dengan proses yang mudah dan cepat.
+                Pilih ribuan rute, bandingkan harga tiket bus, dan nikmati perjalanan nyaman dengan berbagai fasilitas tanpa perlu antre di loket. Cukup unduh aplikasi LBus, pesan tiket, dan dapatkan promo menarik serta cashback setiap kali memesan. Jelajahi Indonesia dengan redBus untuk perjalanan yang lebih mudah dan menyenangkan!</p>
+            
+            <h3>Mengapa Memilih LBus untuk Beli Tiket Bus Online?</h3>
+            <p>1. Layanan Pemesanan yang Cepat dan Mudah - LBus menawarkan kemudahan dalam pemesanan tiket bus online    dengan proses yang cepat dan user-friendly.
+                <br>2. Jangkauan Global - LBus tidak hanya beroperasi di Indonesia, tetapi juga dipercaya oleh jutaan pelanggan di Singapura, Malaysia, India, Peru, dan Kolombia.
+               <br> 3. Mitra dengan 3.500+ Operator Bus - Untuk menyediakan layanan terbaik, LBus bermitra dengan lebih dari 3.500 operator bus terkemuka di berbagai negara.
+                <br>4. Layanan Wisata Pulau - Selain tiket bus, LBus juga menyediakan layanan perjalanan antarpulau menggunakan kapal feri di Singapura dan Malaysia.
+                <br>5. Penghematan Waktu dan Uang - LBus membantu Anda menghemat waktu dan uang dengan memungkinkan perbandingan harga tiket bus dari berbagai operator sebelum melakukan pembelian.
+                <br>6. Metode Pembayaran yang Beragam - LBus menyediakan berbagai opsi pembayaran untuk memastikan transaksi yang mudah dan praktis. Terdapat beberapa metode seperti akun virtual LBus, transfer bank, kartu debit atau kredit, dompet digital, dan sebagainya.
+                <br>7. Transaksi Aman dan Terpercaya - Keamanan dan kepercayaan dalam bertransaksi menjadi prioritas utama di LBus.
+                <br>8. Promosi dan Diskon Menarik - LBus menawarkan berbagai program menarik seperti promosi, cashback, dan diskon tarif shuttle bus, dengan garansi harga tetap saat memesan tiket secara online.</p>
+       
+            <h3>Cara Mudah Pesan Tiket Bus dan Shuttle Bus Online di LBus</h3>
+            <p>Sekarang, Anda bisa dengan mudah memesan tiket bis & tiket travel online untuk bus regular maupun shuttle di situs web atau aplikasi LBus. Mudah, cepat, dan bisa dilakukan dari mana pun dan kapan pun.
+Langkah-langkah untuk memesan tiket bus di situs web atau aplikasi LBus semudah ini:
+<br>1. Pilih kota atau terminal asal dan tujuan.
+<br>2. Masukkan tanggal keberangkatan, lalu klik pilihan “Temukan Bus”.
+<br>3. Anda akan diarahkan ke halaman operator bus yang tersedia pada rute tersebut.
+<br>4. Kemudian, Anda akan melihat daftar rekomendasi operator bus, jadwal bus & travel, serta harga tiket bus & travel. Anda juga bisa memasukkan titik keberangkatan dan titik tujuan untuk mendapatkan lokasi keberangkatan dan tujuan yang tepat.
+<br>5. Gunakan fitur ‘filter’ untuk menyesuaikan pilihan tiket bus & travel Anda, termasuk harga tiket bis & travel, waktu keberangkatan, waktu kedatangan, kelas bus, fasilitas, hingga jenis kendaraan untuk travel.
+<br>6. Pilih kursi
+<br>7. Tentukan titik keberangkatan dan kedatangan dari terminal asal atau tujuan.
+<br>8. Lengkapi informasi penumpang, termasuk rincian kontak, alamat surel, nama lengkap, dan umur.
+<br>9. Klik “Lanjutkan Pesanan”, lalu pilih cara pembayaran untuk menyelesaikan pesanan Anda.</p>
+       <h3>Cara Pembayaran</h3>
+   <p>Untuk menyelesaikan pemesanan tiket bus online di LBus, pilih salah satu cara pembayaran berikut:
+<br>1. Transfer ke Akun Virtual LBus
+<br>2. Transfer Manual ke Rekening Bank Pilihan
+<br>3. Kartu Debit atau Kredit
+<br>4. Dompet Digital seperti OVO dan GoPay
+<br>5. Pembayaran di Alfamart atau Indomaret<br>
+Semua transaksi dijamin aman dan tepercaya. Namun, jika Anda mengalami masalah, jangan ragu menghubungi layanan pelanggan LBus ke support@Lbus.id, yang aktif melayani pada pukul 07.00–23.00 WIB.</p> </div>
+  </div>
+
+        <!-- Footer Links -->
+        <div class="footer-links">
+            <div>
+                <h4>Tentang LBus</h4>
+                <a href="#">Tentang Kami</a>
+                <a href="#">Hubungi Kami</a>
+            </div>
+            <div>
+                <h4>Info</h4>
+                <a href="#">Syarat & Ketentuan</a>
+                <a href="#">Kebijakan Privasi</a>
+            </div>
+        </div>
+    </main>
+
+    <!-- ===== FOOTER ===== -->
+    <footer>
+        <div class="container">
+            <p>© 2026 LBus India Pvt Ltd. Hak Cipta Dilindungi undang-undang</p>
+        </div>
+    </footer>
+
+    <!-- ===== MODAL PILIH BAHASA ===== -->
+    <div id="languageModalOverlay" class="modal-overlay" onclick="closeModalOnOutsideClick(event)">
+        <div class="language-modal">
+            <div class="modal-header">
+                <h2>Pilih Bahasa</h2>
+                <div class="close-icon" onclick="closeLangModal()">&#x2715;</div>
+            </div>
+            <div class="modal-body">
+                <label class="lang-option">
+                    <span>English</span>
+                    <input type="radio" name="language" value="EN" />
+                </label>
+                <div class="divider"></div>
+                <label class="lang-option">
+                    <span>Indonesia</span>
+                    <input type="radio" name="language" value="ID" checked />
+                </label>
+            </div>
+            <button class="btn-confirm" onclick="confirmLanguage()">Konfirmasi</button>
+        </div>
+    </div>
+
+    <!-- ===== MODAL LOGIN ===== -->
+    <div id="loginModalOverlay" class="modal-overlay" onclick="closeModalOnOutsideClick(event)">
+        <div class="login-modal">
+            <h2>Masuk / Daftar</h2>
+            <label class="input-label">Nomor Telepon :</label>
+            <div class="phone-input-group">
+                <div class="country-code">
+                    <span class="code-label">Kode Kota</span>
+                    <span class="code-val">+62 (IDN)</span>
+                </div>
+                <input type="tel" id="loginPhoneInput" placeholder="Nomor Telepon" class="phone-input" />
+            </div>
+            <button class="btn-login" onclick="processLogin()">Login</button>
+
+            <div class="divider-container">
+                <span class="line"></span>
+                <span class="text">Atau Menggunakan</span>
+                <span class="line"></span>
+            </div>
+
+            <div class="social-login">
+                <button class="btn-google" onclick="processGoogleLogin()">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" alt="Google" />
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== MODAL SIMULASI GOOGLE LOGIN ===== -->
+    <div id="googleLoginOverlay" class="modal-overlay" onclick="closeModalOnOutsideClick(event)">
+        <div class="google-modal">
+            <div class="google-logo">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/2/2f/Google_2015_logo.svg" alt="Google Logo" width="75" />
+            </div>
+            <h3>Pilih akun</h3>
+            <p>untuk melanjutkan ke <b>LBus</b></p>
+            <div class="account-list">
+                <div class="account-item" onclick="selectGoogleAccount('Budi Santoso')">
+                    <div class="avatar">B</div>
+                    <div class="account-info">
+                        <div class="name">Budi Santoso</div>
+                        <div class="email">budi.santoso@gmail.com</div>
+                    </div>
+                </div>
+                <div class="account-item" onclick="showMessage('Fitur tambah akun belum tersedia di simulasi ini.')">
+                    <div class="avatar avatar-alt">👤</div>
+                    <div class="account-info">
+                        <div class="name">Gunakan akun lain</div>
+                    </div>
+                </div>
+            </div>
+            <div class="google-footer">
+                <span>English (United States)</span>
+                <div>Bantuan Privasi Persyaratan</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== MODAL LOGOUT ===== -->
+    <div id="logoutModalOverlay" class="modal-overlay" onclick="closeModalOnOutsideClick(event)">
+        <div class="message-box">
+            <p id="logoutMessageText" style="font-size:18px; color:black; margin-bottom:25px;">Apakah Anda yakin ingin keluar?</p>
+            <div style="display:flex; gap:15px; justify-content:center;">
+                <button onclick="processLogout()" style="background-color:#ff0000; padding:10px 30px; color:#fff; border:none; border-radius:8px; font-weight:bold; cursor:pointer;">Keluar</button>
+                <button onclick="closeLogoutModal()" style="background-color:#ccc; color:black; padding:10px 30px; border:none; border-radius:8px; font-weight:bold; cursor:pointer;">Batal</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== CUSTOM MESSAGE BOX ===== -->
+    <div id="customMessageBox" class="message-box-overlay">
+        <div class="message-box">
+            <p id="customMessageText">Pesan disini</p>
+            <button onclick="closeMessageBox()">OK</button>
+        </div>
+    </div>
+
+    <!-- ===== HALAMAN AKUN SAYA (FULL SCREEN OVERLAY) ===== -->
+    <div id="profileViewOverlay" class="profile-view-overlay">
+        <div class="profile-container">
+            <div class="profile-header">
+                <span class="profile-close-btn" onclick="closeProfileView()">✕</span>
+                <h2>Akun</h2>
+            </div>
+            <div class="profile-content">
+                <!-- Sidebar -->
+                <div class="profile-sidebar">
+                    <div class="menu-section">
+                        <h3>Rincian Saya</h3>
+                        <div class="menu-item active" id="tab-info" onclick="switchTab('info')">
+                            <span>👤</span> Informasi Pribadi
+                        </div>
+                        <div class="menu-item" id="tab-pemesanan" onclick="switchTab('pemesanan')">
+                            <span>📋</span> Pemesanan
+                        </div>
+                    </div>
+                    <div class="menu-section">
+                        <h3>Pembayaran</h3>
+                        <div class="menu-item" id="tab-payment" onclick="switchTab('payment')">
+                            <span>💳</span> Metode Pembayaran
+                        </div>
+                        <div class="menu-item" id="tab-rekening" onclick="switchTab('rekening')">
+                            <span>🏦</span> Rekening Pengembalian Dana
+                        </div>
+                    </div>
+                    <div class="menu-section">
+                        <h3>Preferensi</h3>
+                        <div class="menu-item" id="tab-negara" onclick="switchTab('negara')">
+                            <span>🌎</span> Negara
+                        </div>
+                        <div class="menu-item" id="tab-mata-uang" onclick="switchTab('mata-uang')">
+                            <span>💲</span> Mata Uang
+                        </div>
+                    </div>
+                    <button class="profile-logout-btn" onclick="openLogoutModal()">Keluar</button>
+                </div>
+
+                <!-- Konten utama -->
+                <div class="profile-main-content">
+                    <!-- Info Pribadi -->
+                    <div id="content-info">
+                        <form id="profileForm">
+                            <div class="profile-form-group">
+                                <label>Nama</label>
+                                <input type="text" id="profileNama" placeholder="Masukkan nama" />
+                            </div>
+                            <div class="profile-form-group">
+                                <label>Tanggal Lahir</label>
+                                <input type="date" id="profileTanggalLahir" />
+                            </div>
+                            <div class="profile-form-group">
+                                <label>Jenis Kelamin</label>
+                                <div class="gender-group">
+                                    <label class="radio-box">
+                                        <input type="radio" name="profileGender" value="Laki-laki" /> Laki-laki
+                                    </label>
+                                    <label class="radio-box">
+                                        <input type="radio" name="profileGender" value="Perempuan" /> Perempuan
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="profile-form-group">
+                                <label>Rincian Kontak</label>
+                                <input type="text" id="profileKontak" placeholder="Nomor Telepon" />
+                            </div>
+                            <div class="profile-form-group">
+                                <label>Email</label>
+                                <input type="email" id="profileEmail" placeholder="Masukkan email" />
+                            </div>
+                            <div class="profile-button-area">
+                                <button type="submit" class="save-btn">Simpan Perubahan</button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- Metode Pembayaran -->
+                    <div id="content-payment" style="display:none;">
+                        <h1 style="font-size:24px; margin-bottom:20px; font-weight:600;">Metode Pembayaran</h1>
+                        <div class="payment-empty">
+                            <div class="image-slot">
+                                <img src="payment.png" alt="Foto Metode Pembayaran"
+                                     onerror="this.src='https://placehold.co/320x260/fafafa/ccc?text=Belum+Ada+Metode+Pembayaran'" />
+                            </div>
+                            <h2>Tidak ada metode pembayaran tersimpan</h2>
+                            <p>Setelah Anda melakukan transaksi, metode pembayaran Anda akan tampil di sini</p>
+                        </div>
+                    </div>
+
+                    <!-- Pemesanan -->
+                    <div id="content-pemesanan" style="display:none;">
+                        <h1 style="font-size:24px; margin-bottom:25px; font-weight:600;">Pemesanan Sebelumnya</h1>
+                        <div class="order-card">
+                            <div class="order-brand">
+                                <img src="logolbus.jpg" alt="LBus" height="20"
+                                     onerror="this.src='https://placehold.co/60x20/1e3d59/white?text=LBus'" />
+                            </div>
+                            <div class="order-route">
+                                <span>Salatiga ➔ Jakarta</span>
+                                <span class="order-pax">👤 1</span>
+                            </div>
+                            <div class="order-meta">
+                                3 Juli 2026, 06:00<br />Sinar Jaya
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Rekening Pengembalian Dana -->
+                    <div id="content-rekening" style="display:none;">
+                        <h1 style="font-size:24px; margin-bottom:20px; font-weight:600;">Rekening Pengembalian Dana</h1>
+                        <div class="payment-empty">
+                            <div class="image-slot" style="border:none; background:transparent; margin-bottom:10px;">
+                                <img src="https://placehold.co/250x200/fce8e8/ff0000?text=Ilustrasi+Rekening" alt="Ilustrasi Rekening" />
+                            </div>
+                            <h2>Tidak ada akun yang ditambahkan</h2>
+                            <p>Ketika Anda memiliki Akun, itu akan muncul disini</p>
+                            <button class="btn-red-full" style="max-width:280px; margin-top:20px;">Tambahkan Rekening Baru</button>
+                        </div>
+                    </div>
+
+                    <!-- Negara -->
+                    <div id="content-negara" style="display:none;">
+                        <h1 style="font-size:24px; margin-bottom:20px; font-weight:600;">Negara</h1>
+                        <div class="radio-list-container">
+                            <label class="radio-item">
+                                <div class="radio-item-left"><span>🇮🇩</span> Indonesia</div>
+                                <input type="radio" name="pilihNegara" value="ID" checked />
+                            </label>
+                            <label class="radio-item">
+                                <div class="radio-item-left"><span>🇲🇾</span> Malaysia</div>
+                                <input type="radio" name="pilihNegara" value="MY" />
+                            </label>
+                            <label class="radio-item">
+                                <div class="radio-item-left"><span>🇸🇬</span> Singapore</div>
+                                <input type="radio" name="pilihNegara" value="SG" />
+                            </label>
+                            <label class="radio-item">
+                                <div class="radio-item-left"><span>🇻🇳</span> Vietnam</div>
+                                <input type="radio" name="pilihNegara" value="VN" />
+                            </label>
+                            <label class="radio-item">
+                                <div class="radio-item-left"><span>🇵🇭</span> Filipina</div>
+                                <input type="radio" name="pilihNegara" value="PH" />
+                            </label>
+                        </div>
+                        <button class="btn-red-full" onclick="showMessage('Preferensi Negara berhasil disimpan!')">Konfirmasi</button>
+                    </div>
+
+                    <!-- Mata Uang -->
+                    <div id="content-mata-uang" style="display:none;">
+                        <h1 style="font-size:24px; margin-bottom:20px; font-weight:600;">Mata Uang</h1>
+                        <div class="radio-list-container">
+                            <label class="radio-item">
+                                <div class="radio-item-left"><span>🇮🇩</span> Rupiah</div>
+                                <input type="radio" name="pilihUang" value="IDR" checked />
+                            </label>
+                            <label class="radio-item">
+                                <div class="radio-item-left"><span>🇲🇾</span> Ringgit Malaysia</div>
+                                <input type="radio" name="pilihUang" value="MYR" />
+                            </label>
+                            <label class="radio-item">
+                                <div class="radio-item-left"><span>🇸🇬</span> Singapore Dollar</div>
+                                <input type="radio" name="pilihUang" value="SGD" />
+                            </label>
+                            <label class="radio-item">
+                                <div class="radio-item-left"><span>🇻🇳</span> Dong Vietnam</div>
+                                <input type="radio" name="pilihUang" value="VND" />
+                            </label>
+                            <label class="radio-item">
+                                <div class="radio-item-left"><span>🇵🇭</span> Peso Filipina</div>
+                                <input type="radio" name="pilihUang" value="PHP" />
+                            </label>
+                        </div>
+                        <button class="btn-red-full" onclick="showMessage('Preferensi Mata Uang berhasil disimpan!')">Konfirmasi</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== JS TERPISAH ===== -->
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,238 @@
+// ===== script.js =====
+
+// ===== VARIABEL GLOBAL =====
+let isLoggedIn = false;
+let currentUser = "";
+
+// ===== CUSTOM MESSAGE BOX =====
+function showMessage(text) {
+    document.getElementById('customMessageText').innerText = text;
+    document.getElementById('customMessageBox').style.display = 'flex';
+}
+
+function closeMessageBox() {
+    document.getElementById('customMessageBox').style.display = 'none';
+}
+
+// ===== PROFIL VIEW =====
+function openProfileView() {
+    document.getElementById('profileViewOverlay').style.display = 'block';
+    document.body.style.overflow = 'hidden';
+}
+
+function closeProfileView() {
+    document.getElementById('profileViewOverlay').style.display = 'none';
+    document.body.style.overflow = 'auto';
+    switchTab('info');
+}
+
+// ===== TAB AKUN =====
+function switchTab(tabName) {
+    const tabs = ['info', 'pemesanan', 'payment', 'rekening', 'negara', 'mata-uang'];
+    tabs.forEach(t => {
+        const tabEl = document.getElementById('tab-' + t);
+        const contentEl = document.getElementById('content-' + t);
+        if (tabEl) tabEl.classList.remove('active');
+        if (contentEl) contentEl.style.display = 'none';
+    });
+
+    const selectedTab = document.getElementById('tab-' + tabName);
+    const selectedContent = document.getElementById('content-' + tabName);
+    if (selectedTab) selectedTab.classList.add('active');
+    if (selectedContent) selectedContent.style.display = 'block';
+}
+
+// ===== LANGUAGE MODAL =====
+function openLangModal() {
+    document.getElementById('languageModalOverlay').style.display = 'flex';
+}
+
+function closeLangModal() {
+    document.getElementById('languageModalOverlay').style.display = 'none';
+}
+
+function confirmLanguage() {
+    const selectedLang = document.querySelector('input[name="language"]:checked').value;
+    document.getElementById('currentLang').innerText = selectedLang;
+    closeLangModal();
+    const langName = selectedLang === 'ID' ? 'Indonesia' : 'English';
+    showMessage('Bahasa berhasil diubah menjadi: ' + langName);
+}
+
+// ===== LOGIN / LOGOUT =====
+function handleAkunClick() {
+    if (isLoggedIn) {
+        openProfileView();
+    } else {
+        openLoginModal();
+    }
+}
+
+function openLoginModal() {
+    document.getElementById('loginModalOverlay').style.display = 'flex';
+}
+
+function closeLoginModal() {
+    document.getElementById('loginModalOverlay').style.display = 'none';
+}
+
+function openLogoutModal() {
+    document.getElementById('logoutModalOverlay').style.display = 'flex';
+}
+
+function closeLogoutModal() {
+    document.getElementById('logoutModalOverlay').style.display = 'none';
+}
+
+function processLogin() {
+    const phone = document.getElementById('loginPhoneInput').value.trim();
+    if (!phone) {
+        showMessage('Silakan masukkan nomor telepon Anda.');
+        return;
+    }
+
+    isLoggedIn = true;
+    currentUser = '+62 ' + phone;
+    document.getElementById('akunToggle').innerHTML = '👤 ' + currentUser;
+
+    document.getElementById('profileKontak').value = currentUser;
+    document.getElementById('profileNama').value = '';
+    document.getElementById('profileEmail').value = '';
+
+    closeLoginModal();
+    showMessage('Berhasil login dengan nomor:\n+62 ' + phone);
+}
+
+function processGoogleLogin() {
+    closeLoginModal();
+    document.getElementById('googleLoginOverlay').style.display = 'flex';
+}
+
+function closeGoogleModal() {
+    document.getElementById('googleLoginOverlay').style.display = 'none';
+}
+
+function selectGoogleAccount(userName) {
+    isLoggedIn = true;
+    currentUser = userName;
+
+    document.getElementById('profileNama').value = userName;
+    document.getElementById('profileEmail').value = 'budi.santoso@gmail.com';
+    document.getElementById('profileKontak').value = '';
+
+    closeGoogleModal();
+    document.getElementById('akunToggle').innerHTML = '👤 ' + userName;
+    showMessage('Berhasil login menggunakan akun Google:\n' + userName);
+}
+
+function processLogout() {
+    isLoggedIn = false;
+    currentUser = '';
+    document.getElementById('akunToggle').innerHTML = '👤 Akun';
+    document.getElementById('loginPhoneInput').value = '';
+    closeLogoutModal();
+    closeProfileView();
+    showMessage('Anda telah berhasil keluar (Logout).');
+}
+
+// ===== MODAL OUTSIDE CLICK =====
+function closeModalOnOutsideClick(event) {
+    if (event.target.id === 'languageModalOverlay') closeLangModal();
+    if (event.target.id === 'loginModalOverlay') closeLoginModal();
+    if (event.target.id === 'googleLoginOverlay') closeGoogleModal();
+    if (event.target.id === 'logoutModalOverlay') closeLogoutModal();
+}
+
+// ===== DROPDOWN ASAL / TUJUAN =====
+function toggleAsalDropdown() {
+    const dropdown = document.getElementById('asalDropdown');
+    document.getElementById('tujuanDropdown').style.display = 'none';
+    dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
+}
+
+function selectOrigin(value) {
+    document.getElementById('asal').value = value;
+    document.getElementById('asalDropdown').style.display = 'none';
+}
+
+function toggleDestDropdown() {
+    const dropdown = document.getElementById('tujuanDropdown');
+    document.getElementById('asalDropdown').style.display = 'none';
+    dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
+}
+
+function selectDestination(value) {
+    document.getElementById('tujuan').value = value;
+    document.getElementById('tujuanDropdown').style.display = 'none';
+}
+
+// Tutup dropdown saat klik di luar
+document.addEventListener('click', function(event) {
+    const tujuanDropdown = document.getElementById('tujuanDropdown');
+    const inputTujuan = document.getElementById('tujuan');
+    if (tujuanDropdown && event.target !== inputTujuan && !tujuanDropdown.contains(event.target)) {
+        tujuanDropdown.style.display = 'none';
+    }
+
+    const asalDropdown = document.getElementById('asalDropdown');
+    const inputAsal = document.getElementById('asal');
+    if (asalDropdown && event.target !== inputAsal && !asalDropdown.contains(event.target)) {
+        asalDropdown.style.display = 'none';
+    }
+});
+
+// ===== DOMContentLoaded =====
+document.addEventListener('DOMContentLoaded', function() {
+
+    // ===== FORM PROFIL =====
+    const profileForm = document.getElementById('profileForm');
+    if (profileForm) {
+        profileForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const nama = document.getElementById('profileNama').value;
+            const tanggalLahir = document.getElementById('profileTanggalLahir').value;
+            const kontak = document.getElementById('profileKontak').value;
+            const email = document.getElementById('profileEmail').value;
+            const gender = document.querySelector('input[name="profileGender"]:checked');
+
+            if (nama === '' || tanggalLahir === '' || kontak === '' || email === '' || !gender) {
+                showMessage('Mohon lengkapi semua data profil Anda!');
+                return;
+            }
+
+            showMessage(
+                'Data berhasil disimpan!\n\n' +
+                'Nama: ' + nama + '\n' +
+                'Tanggal Lahir: ' + tanggalLahir + '\n' +
+                'Jenis Kelamin: ' + gender.value + '\n' +
+                'Kontak: ' + kontak + '\n' +
+                'Email: ' + email
+            );
+        });
+    }
+
+    // ===== TANGGAL PERGI (otomatis hari ini) =====
+    const tglPergiInput = document.getElementById('tglPergi');
+    if (tglPergiInput) {
+        const hariIni = new Date().toISOString().split('T')[0];
+        tglPergiInput.value = hariIni;
+    }
+
+    // ===== TOMBOL CARI BUS =====
+    const btnCari = document.getElementById('btnCari');
+    if (btnCari) {
+        btnCari.addEventListener('click', function() {
+            const asal = document.getElementById('asal').value.trim();
+            const tujuan = document.getElementById('tujuan').value.trim();
+            const tanggal = document.getElementById('tglPergi').value;
+
+            if (!asal || !tujuan) {
+                showMessage('Silakan masukkan lokasi Asal dan Tujuan terlebih dahulu!');
+                return;
+            }
+
+            showMessage('Mencari tiket bus aktif...\n\nRute: ' + asal + ' ➔ ' + tujuan + '\nTanggal Keberangkatan: ' + tanggal);
+        });
+    }
+});
