@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Informasi Penumpang - LBus</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css" />
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="page-header">
+    <button class="back-btn" onclick="history.back()">
+      <i class="ti ti-x"></i>
+    </button>
+    <h1 class="page-title">Informasi Penumpang</h1>
+  </header>
+
+  <main class="page-main center-content">
+    <div class="booking-summary">
+      <div class="summary-route">
+        <div class="summary-from">
+          <div class="summary-time">Jumat, 3 Jul - 06:00</div>
+          <div class="summary-city">Salatiga</div>
+        </div>
+        <div class="summary-arrow">
+          <div class="summary-line"></div>
+          <i class="ti ti-arrow-right"></i>
+        </div>
+        <div class="summary-to">
+          <div class="summary-time">Jumat, 3 Jul - 12:00</div>
+          <div class="summary-city">Jakarta</div>
+        </div>
+      </div>
+      <div class="summary-seat">
+        <i class="ti ti-armchair"></i>
+        <span>1 Kursi</span>
+      </div>
+    </div>
+
+    <!-- Contact Details -->
+    <div class="form-card">
+      <h3 class="form-title">Detail Kontak</h3>
+      <p class="form-subtitle">Detail tiket akan dikirim ke</p>
+
+      <div class="form-group">
+        <label for="email">Alamat Email</label>
+        <input type="email" id="email" placeholder="Masukkan email" />
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="country">Kode Negara</label>
+          <select id="country">
+            <option value="+62">+62</option>
+            <option value="+65">+65</option>
+            <option value="+60">+60</option>
+          </select>
+        </div>
+        <div class="form-group flex-1">
+          <label for="phone">Telepon</label>
+          <input type="tel" id="phone" placeholder="Nomor telepon" />
+        </div>
+      </div>
+    </div>
+
+    <!-- Passenger Details -->
+    <div class="form-card">
+      <h3 class="form-title">Detail Penumpang</h3>
+      <p class="form-subtitle">1/1 Dipilih</p>
+
+      <div class="passenger-item">
+        <div class="passenger-avatar">
+          <i class="ti ti-user"></i>
+        </div>
+        <div class="passenger-info">
+          <div class="passenger-name">Imanuel Valen Linggi Allo</div>
+          <div class="passenger-age">20 Tahun</div>
+        </div>
+        <button class="passenger-check" type="button" aria-label="Pilih penumpang">
+          <i class="ti ti-check"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Insurance -->
+    <div class="form-card insurance-card">
+      <h3 class="form-title">Asuransi Perjalanan</h3>
+      <p class="form-subtitle">Pada GOALA</p>
+
+      <div class="insurance-options">
+        <div class="insurance-option">
+          <div class="insurance-icon"><i class="ti ti-shield-check"></i></div>
+          <div class="insurance-detail">
+            <div class="insurance-amount">Hingga Rp 50 Mio</div>
+            <div class="insurance-desc">Santunan akibat kematian atau cacat tetap total/ kehilangan akibat kecelakaan</div>
+          </div>
+        </div>
+        <div class="insurance-option">
+          <div class="insurance-icon"><i class="ti ti-file-dollar"></i></div>
+          <div class="insurance-detail">
+            <div class="insurance-amount">Hingga Rp 5 Mio</div>
+            <div class="insurance-desc">Penggantian biaya pengobatan akibat kecelakaan</div>
+          </div>
+        </div>
+        <div class="insurance-option">
+          <div class="insurance-icon"><i class="ti ti-clock-pause"></i></div>
+          <div class="insurance-detail">
+            <div class="insurance-amount">Hingga Rp 500K</div>
+            <div class="insurance-desc">Santunan akibat keterlambatan bagasi selama perjalanan</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="insurance-toggle">
+        <span>Ya, Lindungi perjalanan saya di Rp 5.000 per penumpang</span>
+        <label class="toggle-switch">
+          <input type="checkbox" checked />
+          <span class="toggle-slider"></span>
+        </label>
+      </div>
+    </div>
+  </main>
+
+  <!-- Bottom Bar -->
+  <div class="bottom-bar active">
+    <div class="bottom-info">
+      <div class="bottom-label">
+        <span class="bottom-title">Jumlah</span>
+        <span class="bottom-sub">1 Kursi, termasuk biaya layanan</span>
+      </div>
+      <span class="seat-price">Rp 255.000</span>
+    </div>
+    <a href="page4.html" class="pay-btn">
+      Bayar Sekarang
+    </a>
+  </div>
+
+  <script src="./script.js"></script>
+</body>
+</html>
