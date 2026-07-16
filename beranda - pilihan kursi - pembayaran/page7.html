@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Print Tiket - LBus</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css" />
+</head>
+<body class="ticket-page print-view">
+
+  <!-- Gradient Header -->
+  <div class="ticket-gradient-header"></div>
+
+  <main class="ticket-main">
+    <h1 class="print-title">Tiket Anda</h1>
+
+    <!-- Logo -->
+    <div class="ticket-logo">
+      <div class="logo-main">
+        <img src="logoLbus.jpg" alt="LBus" class="logo-img">
+      </div>
+      <div class="logo-sub">
+        <i class="ti ti-ticket"></i>
+        <span>Tiket Bus</span>
+      </div>
+    </div>
+
+    <!-- Ticket Card -->
+    <div class="ticket-card">
+      <!-- Ticket Header (Dark) -->
+      <div class="ticket-header">
+        <div class="ticket-route">
+          <div class="ticket-from">
+            <div class="ticket-city">Salatiga</div>
+            <div class="ticket-terminal">Terminal Tingkir</div>
+          </div>
+          <div class="ticket-time">
+            <div class="ticket-clock">06:00</div>
+            <div class="ticket-date">Jumat, 03 Jul</div>
+          </div>
+        </div>
+
+        <div class="ticket-route-divider">
+          <div class="ticket-dot"></div>
+          <div class="ticket-line"></div>
+          <div class="ticket-dot"></div>
+        </div>
+
+        <div class="ticket-route">
+          <div class="ticket-from">
+            <div class="ticket-city">Jakarta</div>
+            <div class="ticket-terminal">Terminal Pulo Gebang</div>
+          </div>
+          <div class="ticket-time">
+            <div class="ticket-clock">12:00</div>
+            <div class="ticket-date">Jumat, 03 Jul</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Ticket Body -->
+      <div class="ticket-body">
+        <!-- QR Code -->
+        <div class="ticket-qr">
+          <div class="qr-placeholder">
+            <i class="ti ti-qrcode"></i>
+          </div>
+        </div>
+
+        <!-- Bus Info -->
+        <div class="ticket-bus-info">
+          <div class="bus-name">Sinar Jaya</div>
+          <div class="bus-type">Executive Bus 2+2 - 1 Kursi</div>
+        </div>
+
+        <!-- Divider -->
+        <div class="ticket-divider">
+          <div class="divider-hole left"></div>
+          <div class="divider-line"></div>
+          <div class="divider-hole right"></div>
+        </div>
+
+        <!-- Passenger Info -->
+        <div class="ticket-passenger">
+          <div class="passenger-name">Budi Santoso</div>
+          <div class="passenger-age">(20 Tahun)</div>
+        </div>
+
+        <!-- Divider -->
+        <div class="ticket-divider">
+          <div class="divider-hole left"></div>
+          <div class="divider-line"></div>
+          <div class="divider-hole right"></div>
+        </div>
+
+        <!-- Ticket Details -->
+        <div class="ticket-details">
+          <div class="detail-row">
+            <span class="detail-label">Tiket #</span>
+            <span class="detail-value"><i class="ti ti-ticket"></i> IDV4U40277022</span>
+          </div>
+          <div class="detail-row">
+            <span class="detail-label">PNR #</span>
+            <span class="detail-value">3888976-1775708023-777-5220#26032799992 879875003</span>
+          </div>
+          <div class="detail-row detail-total">
+            <span class="detail-label">Dibayar</span>
+            <span class="detail-value price">RP 255.000</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>

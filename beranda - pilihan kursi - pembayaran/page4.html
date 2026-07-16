@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Metode Pembayaran - LBus</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css" />
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="page-header">
+    <button class="back-btn" onclick="history.back()">
+      <i class="ti ti-x"></i>
+    </button>
+    <h1 class="page-title">Metode Pembayaran</h1>
+    <img class="header-logo" src="logoLbus.jpg" alt="LBus">
+  </header>
+
+  <main class="page-main center-content">
+    <!-- Booking Summary -->
+    <div class="booking-summary compact">
+      <div class="summary-route">
+        <div class="summary-from">
+          <div class="summary-time">Jumat, 3 Jul - 06:00</div>
+          <div class="summary-city">Salatiga</div>
+        </div>
+        <div class="summary-arrow">
+          <div class="summary-line"></div>
+          <i class="ti ti-arrow-right"></i>
+        </div>
+        <div class="summary-to">
+          <div class="summary-time">Jumat, 3 Jul - 12:00</div>
+          <div class="summary-city">Jakarta</div>
+        </div>
+      </div>
+      <div class="summary-seat">
+        <i class="ti ti-armchair"></i>
+        <span>1 Kursi</span>
+      </div>
+    </div>
+
+    <!-- Voucher -->
+    <div class="form-card voucher-card">
+      <div class="voucher-header">
+        <i class="ti ti-ticket"></i>
+        <span>Anda punya kode voucher?</span>
+      </div>
+      <div class="voucher-input">
+        <input type="text" placeholder="Kode voucher" />
+        <button class="voucher-btn">Gunakan</button>
+      </div>
+    </div>
+
+    <!-- Payment Methods -->
+    <div class="form-card payment-card">
+      <!-- Virtual Account -->
+      <div class="payment-group">
+        <div class="payment-group-header open" onclick="toggleGroup(this)">
+          <div class="payment-group-title">
+            <i class="ti ti-building-bank"></i>
+            <span>Virtual Account Transfer (Transfer Bank)</span>
+          </div>
+          <i class="ti ti-chevron-down toggle-icon"></i>
+        </div>
+        <div class="payment-group-body open">
+          <label class="payment-option">
+            <div class="payment-bank">
+              <div class="bank-logo bca">BCA</div>
+              <span>BCA</span>
+            </div>
+            <input type="radio" name="payment" value="bca" checked />
+            <span class="radio-circle"></span>
+          </label>
+          <label class="payment-option">
+            <div class="payment-bank">
+              <div class="bank-logo bni">BNI</div>
+              <span>BNI</span>
+            </div>
+            <input type="radio" name="payment" value="bni" />
+            <span class="radio-circle"></span>
+          </label>
+          <label class="payment-option">
+            <div class="payment-bank">
+              <div class="bank-logo bri">BRI</div>
+              <span>BRI</span>
+            </div>
+            <input type="radio" name="payment" value="bri" />
+            <span class="radio-circle"></span>
+          </label>
+          <label class="payment-option">
+            <div class="payment-bank">
+              <div class="bank-logo mandiri">MANDIRI</div>
+              <span>MANDIRI</span>
+            </div>
+            <input type="radio" name="payment" value="mandiri" />
+            <span class="radio-circle"></span>
+          </label>
+        </div>
+      </div>
+
+      <!-- Wallets -->
+      <div class="payment-group">
+        <div class="payment-group-header" onclick="toggleGroup(this)">
+          <div class="payment-group-title">
+            <i class="ti ti-wallet"></i>
+            <span>Wallets</span>
+          </div>
+          <i class="ti ti-chevron-down toggle-icon"></i>
+        </div>
+        <div class="payment-group-body">
+          <label class="payment-option">
+            <div class="payment-bank">
+              <div class="bank-logo gopay">Gopay</div>
+              <span>Gopay</span>
+            </div>
+            <input type="radio" name="payment" value="gopay" />
+            <span class="radio-circle"></span>
+          </label>
+          <label class="payment-option">
+            <div class="payment-bank">
+              <div class="bank-logo shopeepay">ShopeePay</div>
+              <span>ShopeePay</span>
+            </div>
+            <input type="radio" name="payment" value="shopeepay" />
+            <span class="radio-circle"></span>
+          </label>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Bottom Bar -->
+  <div class="bottom-bar active">
+    <div class="bottom-info">
+      <div class="bottom-label">
+        <span class="bottom-title">Jumlah</span>
+        <span class="bottom-sub">Gunakan metode pembayaran</span>
+      </div>
+      <span class="seat-price">Rp 255.000</span>
+    </div>
+    <a href="page5.html" class="pay-btn">
+      Bayar Sekarang
+    </a>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
