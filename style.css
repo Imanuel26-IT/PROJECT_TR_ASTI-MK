@@ -1,0 +1,1815 @@
+/* =============================================
+   LBus — Bus Ticket Booking App (Indonesia)
+   ============================================= */
+
+   @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+   *, *::before, *::after {
+     box-sizing: border-box;
+     margin: 0;
+     padding: 0;
+   }
+   
+   :root {
+     --bg:         #ffffff;
+     --bg-gray:    #f5f5f5;
+     --bg-dark:    #171717;
+     --surface:    #ffffff;
+     --border:     #e5e5e5;
+     --border-2:   #d4d4d4;
+     --border-3:   #a3a3a3;
+     --text:       #171717;
+     --text-2:     #525252;
+     --text-3:     #737373;
+     --text-4:     #a3a3a3;
+     --accent:     #ef4444;
+     --accent-h:   #dc2626;
+     --accent-light: #fef2f2;
+     --green:      #22c55e;
+     --green-light:#f0fdf4;
+     --blue:       #3b82f6;
+     --blue-light: #eff6ff;
+     --orange:     #f97316;
+     --purple:     #8b5cf6;
+     --shadow:     0 2px 12px rgba(0,0,0,0.06);
+     --shadow-lg:  0 8px 30px rgba(0,0,0,0.12);
+   }
+   
+   html {
+     scroll-behavior: smooth;
+   }
+   
+   body {
+     font-family: 'Inter', system-ui, sans-serif;
+     background: var(--bg);
+     color: var(--text);
+     line-height: 1.4;
+     -webkit-font-smoothing: antialiased;
+     min-height: 100vh;
+   }
+   
+   /* =============================================
+      HEADER
+      ============================================= */
+   .page-header {
+     display: flex;
+     align-items: center;
+     gap: 12px;
+     padding: 12px 20px;
+     border-bottom: 1px solid var(--border);
+     background: var(--surface);
+     height: 56px;
+     flex-shrink: 0;
+     position: sticky;
+     top: 0;
+     z-index: 50;
+   }
+   
+   .back-btn {
+     width: 32px;
+     height: 32px;
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     border-radius: 8px;
+     color: var(--text-2);
+     font-size: 18px;
+     background: none;
+     border: none;
+     cursor: pointer;
+     transition: background 0.15s;
+   }
+   
+   .back-btn:hover {
+     background: var(--bg-gray);
+   }
+   
+   .page-title {
+     font-size: 16px;
+     font-weight: 600;
+     color: var(--text);
+   }
+   
+   .route-info {
+     display: flex;
+     align-items: center;
+     gap: 8px;
+     font-size: 13px;
+     font-weight: 500;
+     color: var(--text-2);
+   }
+   
+   .route-info i {
+     color: var(--text-4);
+     font-size: 14px;
+   }
+   
+   .route-from, .route-to {
+     color: var(--text);
+     font-weight: 600;
+   }
+   
+   /* =============================================
+      MAIN LAYOUT
+      ============================================= */
+   .page-main {
+     display: flex;
+     min-height: calc(100vh - 56px - 72px);
+     max-width: 1260px;
+     margin: 0 auto;
+     width: 100%;
+   }
+   
+   .page-main.center-content {
+     flex-direction: column;
+     align-items: center;
+     padding: 24px 20px 100px;
+     gap: 16px;
+     max-width: 720px;
+     margin: 0 auto;
+     width: 100%;
+   }
+   
+   .page-main.center-content.wide-content {
+     max-width: 1040px;
+   }
+   
+   /* =============================================
+      LEFT PANEL — Trip Info
+      ============================================= */
+   .trip-panel {
+     width: 520px;
+     flex-shrink: 0;
+     padding: 16px 20px;
+     display: flex;
+     flex-direction: column;
+     justify-content: center;
+     gap: 8px;
+   }
+   
+   .trip-section {
+     flex-shrink: 0;
+   }
+   
+   .trip-label-row {
+     display: flex;
+     align-items: center;
+     justify-content: space-between;
+     margin-bottom: 8px;
+   }
+   
+   .trip-label {
+     font-size: 13px;
+     font-weight: 700;
+     color: var(--text);
+   }
+   
+   .trip-city {
+     font-size: 11px;
+     color: var(--text-3);
+     font-weight: 500;
+   }
+   
+   .trip-detail {
+     display: flex;
+     flex-direction: column;
+     gap: 14px;
+   }
+   
+   .trip-stop {
+     display: flex;
+     gap: 14px;
+   }
+   
+   .stop-time-col {
+     flex-shrink: 0;
+     width: 46px;
+   }
+   
+   .stop-info-col {
+     flex: 1;
+     min-width: 0;
+   }
+   
+   .stop-time {
+     font-size: 13px;
+     font-weight: 700;
+     color: var(--text);
+   }
+   
+   .stop-date {
+     font-size: 10px;
+     color: var(--text-3);
+     margin-top: 2px;
+   }
+   
+   .stop-name {
+     font-size: 12px;
+     font-weight: 600;
+     color: var(--text);
+   }
+   
+   .stop-address {
+     font-size: 10px;
+     color: var(--text-3);
+     line-height: 1.3;
+     margin-top: 2px;
+   }
+   
+   .trip-divider {
+     height: 1px;
+     background: var(--border);
+     margin: 6px 0;
+     flex-shrink: 0;
+   }
+   
+   /* Rest Stop */
+   .rest-stop {
+   }
+   
+   .rest-name {
+     font-size: 12px;
+     font-weight: 600;
+     color: var(--text);
+   }
+   
+   .rest-time {
+     font-size: 11px;
+     color: var(--text-3);
+     margin-top: 2px;
+   }
+   
+   .rest-duration {
+     color: var(--accent);
+     font-weight: 500;
+   }
+   
+   /* Facilities */
+   .facilities-list {
+     display: flex;
+     flex-direction: column;
+     gap: 4px;
+     overflow: hidden;
+     transition: max-height 0.3s ease;
+   }
+   
+   .facility-item.facility-extra {
+     display: none;
+   }
+   
+   .facilities-list.expanded .facility-item.facility-extra {
+     display: flex;
+   }
+   
+   .facility-item {
+     display: flex;
+     align-items: center;
+     gap: 6px;
+     font-size: 11px;
+     color: var(--text-2);
+   }
+   
+   .facility-item i {
+     font-size: 12px;
+     color: var(--text-3);
+   }
+   
+   .facilities-toggle {
+     font-size: 11px;
+     color: var(--text-3);
+     margin-top: 6px;
+     display: flex;
+     align-items: center;
+     gap: 4px;
+     background: none;
+     border: none;
+     cursor: pointer;
+     padding: 0;
+   }
+   
+   .facilities-toggle i {
+     font-size: 12px;
+   }
+   
+   /* =============================================
+      RIGHT PANEL — Seat Map
+      ============================================= */
+   .seat-panel {
+     flex: 1;
+     padding: 16px 20px;
+     display: flex;
+     flex-direction: column;
+     align-items: center;
+     justify-content: flex-start;
+     background: var(--surface);
+     gap: 12px;
+   }
+   
+   /* Legend */
+   .seat-legend {
+     display: flex;
+     gap: 20px;
+     flex-shrink: 0;
+   }
+   
+   .legend-item {
+     display: flex;
+     align-items: center;
+     gap: 6px;
+     font-size: 12px;
+     color: var(--text-2);
+   }
+   
+   .legend-seat {
+     width: 22px;
+     height: 22px;
+     border-radius: 4px;
+     display: flex;
+     align-items: center;
+     justify-content: center;
+   }
+   
+   .legend-seat.occupied {
+     background: var(--accent);
+   }
+   
+   .legend-seat.available {
+     background: var(--surface);
+     border: 1.5px solid var(--border-2);
+   }
+   
+   /* Bus Layout */
+   .bus-layout {
+     background: var(--surface);
+     border-radius: 16px;
+     padding: 20px 28px;
+     box-shadow: var(--shadow);
+     flex-shrink: 0;
+   }
+   
+   .bus-body {
+     display: flex;
+     flex-direction: column;
+     gap: 8px;
+   }
+   
+   .seat-row {
+     display: flex;
+     align-items: center;
+     gap: 8px;
+   }
+   
+   .seat {
+     width: 36px;
+     height: 36px;
+     border-radius: 6px;
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     cursor: pointer;
+     transition: all 0.15s ease;
+     position: relative;
+   }
+   
+   .seat::after {
+     content: attr(data-seat);
+     position: absolute;
+     bottom: -14px;
+     left: 50%;
+     transform: translateX(-50%);
+     font-size: 8px;
+     font-weight: 600;
+     color: var(--text-3);
+     opacity: 0;
+     transition: opacity 0.15s;
+     pointer-events: none;
+   }
+   
+   .seat:hover::after {
+     opacity: 1;
+   }
+   
+   .seat i {
+     font-size: 18px;
+   }
+   
+   /* Available seat */
+   .seat.available {
+     background: var(--surface);
+     border: 1.5px solid var(--border-2);
+     color: var(--text-3);
+   }
+   
+   .seat.available:hover {
+     border-color: var(--accent);
+     color: var(--accent);
+     transform: translateY(-2px);
+     box-shadow: 0 3px 8px rgba(239,68,68,0.12);
+   }
+   
+   /* Occupied seat */
+   .seat.occupied {
+     background: var(--accent);
+     border: 1.5px solid var(--accent);
+     color: white;
+     cursor: not-allowed;
+     opacity: 0.85;
+   }
+   
+   .seat.occupied::after {
+     color: white;
+     opacity: 0.7;
+   }
+   
+   /* Selected seat */
+   .seat.selected {
+     background: var(--accent);
+     border: 1.5px solid var(--accent);
+     color: white;
+     box-shadow: 0 3px 10px rgba(239,68,68,0.2);
+   }
+   
+   .seat.selected::after {
+     color: white;
+     opacity: 0.9;
+   }
+   
+   .seat-aisle {
+     width: 20px;
+   }
+   
+   /* =============================================
+      BOTTOM BAR
+      ============================================= */
+   .bottom-bar {
+     position: fixed;
+     bottom: 0;
+     left: 0;
+     right: 0;
+     background: var(--surface);
+     border-top: 1px solid var(--border);
+     padding: 12px 20px;
+     display: flex;
+     align-items: center;
+     justify-content: space-between;
+     gap: 12px;
+     z-index: 40;
+     height: 72px;
+     transform: translateY(100%);
+     transition: transform 0.25s ease;
+   }
+   
+   .bottom-bar.active {
+     transform: translateY(0);
+   }
+   
+   .bottom-info {
+     display: flex;
+     align-items: center;
+     gap: 10px;
+   }
+   
+   .bottom-label {
+     display: flex;
+     flex-direction: column;
+     gap: 2px;
+   }
+   
+   .bottom-title {
+     font-size: 13px;
+     font-weight: 600;
+     color: var(--text);
+   }
+   
+   .bottom-sub {
+     font-size: 11px;
+     color: var(--text-3);
+   }
+   
+   .seat-count {
+     font-size: 13px;
+     font-weight: 600;
+     color: var(--text);
+   }
+   
+   .seat-number {
+     font-size: 11px;
+     color: var(--text-3);
+     padding: 2px 8px;
+     background: var(--bg-gray);
+     border-radius: 4px;
+   }
+   
+   .seat-price {
+     font-size: 15px;
+     font-weight: 700;
+     color: var(--text);
+   }
+   
+   .pay-btn {
+     background: var(--accent);
+     color: white;
+     padding: 12px 28px;
+     border-radius: 9999px;
+     font-size: 14px;
+     font-weight: 600;
+     transition: all 0.2s ease;
+     white-space: nowrap;
+     display: inline-flex;
+     align-items: center;
+     gap: 6px;
+     text-decoration: none;
+     border: none;
+     cursor: pointer;
+   }
+   
+   .pay-btn:hover {
+     background: var(--accent-h);
+     transform: translateY(-1px);
+     box-shadow: 0 4px 12px rgba(239,68,68,0.25);
+   }
+   
+   .pay-btn:disabled {
+     opacity: 0.5;
+     cursor: not-allowed;
+     transform: none;
+     box-shadow: none;
+   }
+   
+   /* =============================================
+      TOAST
+      ============================================= */
+   .toast {
+     position: fixed;
+     bottom: 90px;
+     left: 50%;
+     transform: translateX(-50%) translateY(20px);
+     background: var(--text);
+     color: white;
+     padding: 10px 18px;
+     border-radius: 8px;
+     font-size: 12px;
+     font-weight: 500;
+     box-shadow: var(--shadow-lg);
+     z-index: 200;
+     opacity: 0;
+     pointer-events: none;
+     transition: all 0.3s ease;
+     white-space: nowrap;
+   }
+   
+   .toast.show {
+     opacity: 1;
+     transform: translateX(-50%) translateY(0);
+   }
+   
+   /* =============================================
+      BOOKING SUMMARY (page3, page4, page5)
+      ============================================= */
+   .booking-summary {
+     background: var(--surface);
+     border: 1px solid var(--border);
+     border-radius: 12px;
+     padding: 16px 20px;
+     width: 100%;
+     display: flex;
+     align-items: center;
+     justify-content: space-between;
+     gap: 16px;
+   }
+   
+   .booking-summary.compact {
+     padding: 12px 16px;
+   }
+   
+   .summary-route {
+     display: flex;
+     align-items: center;
+     gap: 12px;
+     flex: 1;
+   }
+   
+   .summary-from, .summary-to {
+     flex: 1;
+   }
+   
+   .summary-time {
+     font-size: 12px;
+     color: var(--text-3);
+     margin-bottom: 2px;
+   }
+   
+   .summary-city {
+     font-size: 14px;
+     font-weight: 600;
+     color: var(--text);
+   }
+   
+   .summary-arrow {
+     display: flex;
+     flex-direction: column;
+     align-items: center;
+     gap: 2px;
+     color: var(--text-4);
+   }
+   
+   .summary-line {
+     width: 1px;
+     height: 16px;
+     background: var(--border-2);
+   }
+   
+   .summary-arrow i {
+     font-size: 14px;
+   }
+   
+   .summary-seat {
+     display: flex;
+     align-items: center;
+     gap: 6px;
+     font-size: 13px;
+     font-weight: 500;
+     color: var(--text-2);
+     padding: 6px 12px;
+     background: var(--bg-gray);
+     border-radius: 8px;
+     white-space: nowrap;
+   }
+   
+   .summary-seat i {
+     color: var(--accent);
+     font-size: 16px;
+   }
+   
+   /* =============================================
+      FORM CARDS
+      ============================================= */
+   .form-card {
+     background: var(--surface);
+     border: 1px solid var(--border);
+     border-radius: 12px;
+     padding: 20px;
+     width: 100%;
+   }
+   
+   .form-title {
+     font-size: 15px;
+     font-weight: 600;
+     color: var(--text);
+     margin-bottom: 4px;
+   }
+   
+   .form-subtitle {
+     font-size: 12px;
+     color: var(--text-3);
+     margin-bottom: 16px;
+   }
+   
+   .form-group {
+     margin-bottom: 16px;
+   }
+   
+   .form-group:last-child {
+     margin-bottom: 0;
+   }
+   
+   .form-group label {
+     display: block;
+     font-size: 12px;
+     font-weight: 500;
+     color: var(--text-2);
+     margin-bottom: 6px;
+   }
+   
+   .form-group input,
+   .form-group select {
+     width: 100%;
+     padding: 10px 12px;
+     border: 1px solid var(--border-2);
+     border-radius: 8px;
+     font-size: 14px;
+     font-family: inherit;
+     color: var(--text);
+     background: var(--surface);
+     transition: border-color 0.15s, box-shadow 0.15s;
+   }
+   
+   .form-group input:focus,
+   .form-group select:focus {
+     outline: none;
+     border-color: var(--accent);
+     box-shadow: 0 0 0 3px rgba(239,68,68,0.08);
+   }
+   
+   .form-group input::placeholder {
+     color: var(--text-4);
+   }
+   
+   .form-row {
+     display: flex;
+     gap: 12px;
+   }
+   
+   .form-row .form-group {
+     flex: 1;
+   }
+   
+   .form-row .form-group:first-child {
+     flex: 0 0 100px;
+   }
+   
+   /* =============================================
+      PASSENGER ITEM
+      ============================================= */
+   .passenger-item {
+     display: flex;
+     align-items: center;
+     gap: 12px;
+     padding: 12px;
+     background: var(--bg-gray);
+     border-radius: 10px;
+   }
+   
+   .passenger-avatar {
+     width: 40px;
+     height: 40px;
+     border-radius: 50%;
+     background: var(--accent-light);
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     color: var(--accent);
+     font-size: 18px;
+     flex-shrink: 0;
+   }
+   
+   .passenger-info {
+     flex: 1;
+   }
+   
+   .passenger-name {
+     font-size: 14px;
+     font-weight: 600;
+     color: var(--text);
+   }
+   
+   .passenger-age {
+     font-size: 12px;
+     color: var(--text-3);
+   }
+   
+   .passenger-check {
+     width: 24px;
+     height: 24px;
+     flex-shrink: 0;
+     border-radius: 6px;
+     border: 1.5px solid var(--border-3);
+     background: var(--surface);
+     color: #fff;
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     font-size: 14px;
+     cursor: pointer;
+     padding: 0;
+     transition: all 0.15s;
+   }
+   
+   .passenger-check i {
+     opacity: 0;
+     transform: scale(0.6);
+     transition: all 0.15s;
+   }
+   
+   .passenger-check:hover {
+     border-color: var(--accent);
+   }
+   
+   .passenger-check.checked {
+     background: var(--accent);
+     border-color: var(--accent);
+   }
+   
+   .passenger-check.checked i {
+     opacity: 1;
+     transform: scale(1);
+   }
+   
+   /* =============================================
+      INSURANCE CARD
+      ============================================= */
+   .insurance-card {
+     background: linear-gradient(135deg, var(--green-light) 0%, var(--surface) 100%);
+     border-color: #bbf7d0;
+   }
+   
+   .insurance-options {
+     display: flex;
+     flex-direction: column;
+     gap: 12px;
+     margin-bottom: 16px;
+   }
+   
+   .insurance-option {
+     display: flex;
+     align-items: flex-start;
+     gap: 12px;
+   }
+   
+   .insurance-icon {
+     width: 36px;
+     height: 36px;
+     border-radius: 8px;
+     background: var(--green-light);
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     color: var(--green);
+     font-size: 18px;
+     flex-shrink: 0;
+   }
+   
+   .insurance-detail {
+     flex: 1;
+   }
+   
+   .insurance-amount {
+     font-size: 13px;
+     font-weight: 600;
+     color: var(--text);
+   }
+   
+   .insurance-desc {
+     font-size: 11px;
+     color: var(--text-3);
+     line-height: 1.4;
+   }
+   
+   .insurance-toggle {
+     display: flex;
+     align-items: center;
+     justify-content: space-between;
+     gap: 12px;
+     padding-top: 12px;
+     border-top: 1px solid var(--border);
+   }
+   
+   .insurance-toggle span {
+     font-size: 13px;
+     font-weight: 500;
+     color: var(--text);
+   }
+   
+   /* Toggle Switch */
+   .toggle-switch {
+     position: relative;
+     width: 44px;
+     height: 24px;
+     flex-shrink: 0;
+     cursor: pointer;
+   }
+   
+   .toggle-switch input {
+     opacity: 0;
+     width: 0;
+     height: 0;
+   }
+   
+   .toggle-slider {
+     position: absolute;
+     inset: 0;
+     background: var(--border-2);
+     border-radius: 24px;
+     transition: background 0.2s;
+   }
+   
+   .toggle-slider::before {
+     content: '';
+     position: absolute;
+     height: 18px;
+     width: 18px;
+     left: 3px;
+     bottom: 3px;
+     background: white;
+     border-radius: 50%;
+     transition: transform 0.2s;
+     box-shadow: 0 1px 3px rgba(0,0,0,0.15);
+   }
+   
+   .toggle-switch input:checked + .toggle-slider {
+     background: var(--green);
+   }
+   
+   .toggle-switch input:checked + .toggle-slider::before {
+     transform: translateX(20px);
+   }
+   
+   /* =============================================
+      VOUCHER CARD
+      ============================================= */
+   .voucher-card {
+     padding: 16px 20px;
+   }
+   
+   .voucher-header {
+     display: flex;
+     align-items: center;
+     gap: 8px;
+     font-size: 13px;
+     font-weight: 500;
+     color: var(--text);
+     margin-bottom: 12px;
+   }
+   
+   .voucher-header i {
+     color: var(--accent);
+     font-size: 18px;
+   }
+   
+   .voucher-input {
+     display: flex;
+     gap: 8px;
+   }
+   
+   .voucher-input input {
+     flex: 1;
+     padding: 10px 12px;
+     border: 1px solid var(--border-2);
+     border-radius: 8px;
+     font-size: 14px;
+     font-family: inherit;
+   }
+   
+   .voucher-input input:focus {
+     outline: none;
+     border-color: var(--accent);
+   }
+   
+   .voucher-btn {
+     padding: 10px 16px;
+     background: var(--accent);
+     color: white;
+     border: none;
+     border-radius: 8px;
+     font-size: 13px;
+     font-weight: 600;
+     cursor: pointer;
+     transition: background 0.15s;
+     white-space: nowrap;
+   }
+   
+   .voucher-btn:hover {
+     background: var(--accent-h);
+   }
+   
+   /* =============================================
+      PAYMENT CARD
+      ============================================= */
+   .payment-card {
+     padding: 0;
+     overflow: hidden;
+   }
+   
+   .payment-group {
+     border-bottom: 1px solid var(--border);
+   }
+   
+   .payment-group:last-child {
+     border-bottom: none;
+   }
+   
+   .payment-group-header {
+     display: flex;
+     align-items: center;
+     justify-content: space-between;
+     padding: 14px 20px;
+     cursor: pointer;
+     transition: background 0.15s;
+     user-select: none;
+   }
+   
+   .payment-group-header:hover {
+     background: var(--bg-gray);
+   }
+   
+   .payment-group-title {
+     display: flex;
+     align-items: center;
+     gap: 10px;
+     font-size: 14px;
+     font-weight: 500;
+     color: var(--text);
+   }
+   
+   .payment-group-title i {
+     color: var(--text-3);
+     font-size: 18px;
+   }
+   
+   .toggle-icon {
+     color: var(--text-4);
+     font-size: 16px;
+     transition: transform 0.2s;
+   }
+   
+   .payment-group-header.open .toggle-icon {
+     transform: rotate(180deg);
+   }
+   
+   .payment-group-body {
+     max-height: 0;
+     overflow: hidden;
+     transition: max-height 0.3s ease;
+   }
+   
+   .payment-group-body.open {
+     max-height: 500px;
+   }
+   
+   .payment-option {
+     display: flex;
+     align-items: center;
+     justify-content: space-between;
+     padding: 12px 20px 12px 24px;
+     cursor: pointer;
+     transition: background 0.15s;
+     border-top: 1px solid var(--border);
+   }
+   
+   .payment-option:hover {
+     background: var(--bg-gray);
+   }
+   
+   .payment-option input {
+     display: none;
+   }
+   
+   .payment-bank {
+     display: flex;
+     align-items: center;
+     gap: 10px;
+   }
+   
+   .bank-logo {
+     width: 40px;
+     height: 40px;
+     border-radius: 8px;
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     font-size: 10px;
+     font-weight: 700;
+     color: white;
+     flex-shrink: 0;
+   }
+   
+   .bank-logo.bca { background: #00529c; }
+   .bank-logo.bni { background: #f15a23; }
+   .bank-logo.bri { background: #00529c; }
+   .bank-logo.mandiri { background: #003d79; font-size: 8px; }
+   .bank-logo.gopay { background: #00aed6; font-size: 9px; }
+   .bank-logo.shopeepay { background: #ee4d2d; font-size: 8px; }
+   
+   .payment-bank span {
+     font-size: 14px;
+     font-weight: 500;
+     color: var(--text);
+   }
+   
+   .radio-circle {
+     width: 20px;
+     height: 20px;
+     border: 2px solid var(--border-2);
+     border-radius: 50%;
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     transition: all 0.15s;
+     flex-shrink: 0;
+   }
+   
+   .radio-circle::after {
+     content: '';
+     width: 10px;
+     height: 10px;
+     border-radius: 50%;
+     background: var(--accent);
+     transform: scale(0);
+     transition: transform 0.15s;
+   }
+   
+   .payment-option input:checked + .radio-circle {
+     border-color: var(--accent);
+   }
+   
+   .payment-option input:checked + .radio-circle::after {
+     transform: scale(1);
+   }
+   
+   /* =============================================
+      PAYMENT DETAILS (page5)
+      ============================================= */
+   .payment-details-grid {
+     display: grid;
+     grid-template-columns: 0.9fr 1.3fr;
+     gap: 16px;
+     width: 100%;
+   }
+   
+   .transfer-card {
+     display: flex;
+     flex-direction: column;
+     gap: 16px;
+   }
+   
+   .transfer-header {
+     display: flex;
+     align-items: flex-start;
+     justify-content: space-between;
+     gap: 12px;
+   }
+   
+   .bank-logo-large {
+     width: 80px;
+     height: 40px;
+     border-radius: 8px;
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     font-size: 12px;
+     font-weight: 700;
+     color: white;
+     flex-shrink: 0;
+   }
+   
+   .bank-logo-large.mandiri { background: #003d79; }
+   .bank-logo-large.bca { background: #00529c; }
+   .bank-logo-large.bni { background: #f15a23; }
+   .bank-logo-large.bri { background: #00529c; }
+   
+   .transfer-detail label {
+     display: block;
+     font-size: 11px;
+     color: var(--text-3);
+     margin-bottom: 6px;
+     text-transform: uppercase;
+     letter-spacing: 0.3px;
+   }
+   
+   .va-number {
+     display: flex;
+     align-items: center;
+     gap: 8px;
+     padding: 12px 14px;
+     background: var(--bg-gray);
+     border-radius: 8px;
+     font-size: 16px;
+     font-weight: 600;
+     font-family: 'SF Mono', monospace;
+     color: var(--text);
+     letter-spacing: 0.5px;
+   }
+   
+   .copy-btn {
+     width: 32px;
+     height: 32px;
+     border-radius: 6px;
+     border: none;
+     background: var(--surface);
+     color: var(--text-3);
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     cursor: pointer;
+     transition: all 0.15s;
+     margin-left: auto;
+     flex-shrink: 0;
+   }
+   
+   .copy-btn:hover {
+     background: var(--accent-light);
+     color: var(--accent);
+   }
+   
+   .copy-btn.copied {
+     background: var(--green-light);
+     color: var(--green);
+   }
+   
+   .va-amount {
+     font-size: 24px;
+     font-weight: 700;
+     color: var(--text);
+   }
+   
+   .transfer-timer {
+     display: flex;
+     align-items: center;
+     gap: 8px;
+     padding: 10px 12px;
+     background: var(--blue-light);
+     border-radius: 8px;
+     font-size: 12px;
+     color: var(--blue);
+   }
+   
+   .transfer-timer i {
+     font-size: 16px;
+     flex-shrink: 0;
+   }
+   
+   .transfer-note {
+     font-size: 11px;
+     color: var(--text-3);
+     line-height: 1.4;
+   }
+   
+   .how-to-pay {
+   }
+   
+   .how-to-list {
+     padding-left: 18px;
+     font-size: 12px;
+     color: var(--text-2);
+     line-height: 1.7;
+   }
+   
+   .how-to-list li {
+     margin-bottom: 4px;
+     padding-left: 4px;
+   }
+   
+   .how-to-list li strong {
+     color: var(--text);
+     font-weight: 600;
+   }
+   
+   .confirm-section {
+     width: 100%;
+     display: flex;
+     justify-content: center;
+     padding: 8px 0 16px;
+   }
+   
+   .confirm-btn {
+     display: inline-flex;
+     align-items: center;
+     justify-content: center;
+     padding: 14px 32px;
+     background: var(--green);
+     color: white;
+     border-radius: 9999px;
+     font-size: 14px;
+     font-weight: 600;
+     text-decoration: none;
+     transition: all 0.2s;
+     border: none;
+     cursor: pointer;
+     box-shadow: 0 4px 12px rgba(34,197,94,0.25);
+   }
+   
+   .confirm-btn:hover {
+     background: #16a34a;
+     transform: translateY(-1px);
+     box-shadow: 0 6px 16px rgba(34,197,94,0.3);
+   }
+   
+   .support-btn {
+     position: fixed;
+     bottom: 90px;
+     right: 20px;
+     display: flex;
+     align-items: center;
+     gap: 6px;
+     padding: 10px 16px;
+     background: var(--surface);
+     border: 1px solid var(--border);
+     border-radius: 9999px;
+     font-size: 13px;
+     font-weight: 500;
+     color: var(--text-2);
+     cursor: pointer;
+     box-shadow: var(--shadow);
+     transition: all 0.15s;
+     z-index: 30;
+   }
+   
+   .support-btn:hover {
+     border-color: var(--accent);
+     color: var(--accent);
+     transform: translateY(-1px);
+   }
+   
+   .support-btn i {
+     font-size: 16px;
+   }
+   
+   /* =============================================
+      TICKET PAGE (page6, page7) — New Design
+      ============================================= */
+   .ticket-page {
+     background: #f8f9fa;
+     min-height: 100vh;
+   }
+   
+   /* Gradient Header Bar */
+   .ticket-gradient-header {
+     height: 180px;
+     background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 25%, #8b5cf6 75%, #6366f1 100%);
+     position: relative;
+   }
+   
+   .ticket-gradient-header::after {
+     content: '';
+     position: absolute;
+     bottom: 0;
+     left: 0;
+     right: 0;
+     height: 60px;
+     background: linear-gradient(to bottom, transparent, #f8f9fa);
+   }
+   
+   /* Main Container */
+   .ticket-main {
+     max-width: 480px;
+     margin: -100px auto 60px;
+     padding: 0 20px;
+     position: relative;
+     z-index: 1;
+     display: flex;
+     flex-direction: column;
+     align-items: center;
+     gap: 24px;
+   }
+   
+   /* Print Title */
+   .print-title {
+     font-size: 22px;
+     font-weight: 700;
+     color: white;
+     text-shadow: 0 1px 3px rgba(0,0,0,0.15);
+     margin-bottom: 0;
+   }
+   
+   /* Logo Section */
+   .ticket-logo {
+     display: flex;
+     flex-direction: column;
+     align-items: center;
+     gap: 8px;
+     margin-bottom: 8px;
+   }
+   
+   .logo-main {
+     display: flex;
+     align-items: center;
+     gap: 10px;
+     font-size: 32px;
+     font-weight: 800;
+     color: white;
+     text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+   }
+   
+   .logo-main i {
+     font-size: 36px;
+   }
+   
+   .logo-sub {
+     display: flex;
+     align-items: center;
+     gap: 6px;
+     font-size: 13px;
+     font-weight: 500;
+     color: rgba(255,255,255,0.9);
+     background: rgba(255,255,255,0.15);
+     padding: 4px 12px;
+     border-radius: 20px;
+     backdrop-filter: blur(4px);
+   }
+   
+   /* Ticket Card */
+   .ticket-card {
+     background: white;
+     border-radius: 16px;
+     overflow: hidden;
+     box-shadow: 0 4px 24px rgba(0,0,0,0.08), 0 1px 3px rgba(0,0,0,0.05);
+     width: 100%;
+   }
+   
+   /* Dark Header */
+   .ticket-header {
+     background: #1a1a2e;
+     color: white;
+     padding: 24px 20px;
+     display: flex;
+     flex-direction: column;
+     gap: 16px;
+   }
+   
+   .ticket-route {
+     display: flex;
+     align-items: center;
+     justify-content: space-between;
+   }
+   
+   .ticket-from, .ticket-to {
+     flex: 1;
+   }
+   
+   .ticket-city {
+     font-size: 16px;
+     font-weight: 700;
+     color: white;
+   }
+   
+   .ticket-terminal {
+     font-size: 11px;
+     color: rgba(255,255,255,0.6);
+     margin-top: 2px;
+   }
+   
+   .ticket-time {
+     text-align: right;
+   }
+   
+   .ticket-clock {
+     font-size: 18px;
+     font-weight: 700;
+     color: white;
+   }
+   
+   .ticket-date {
+     font-size: 11px;
+     color: rgba(255,255,255,0.6);
+     margin-top: 2px;
+   }
+   
+   /* Route divider in dark header */
+   .ticket-route-divider {
+     display: flex;
+     align-items: center;
+     gap: 12px;
+     padding: 0 4px;
+   }
+   
+   .ticket-dot {
+     width: 10px;
+     height: 10px;
+     border-radius: 50%;
+     background: white;
+     border: 2px solid rgba(255,255,255,0.3);
+     flex-shrink: 0;
+   }
+   
+   .ticket-line {
+     flex: 1;
+     height: 1px;
+     background: repeating-linear-gradient(90deg, rgba(255,255,255,0.4) 0, rgba(255,255,255,0.4) 6px, transparent 6px, transparent 10px);
+   }
+   
+   /* Ticket Body */
+   .ticket-body {
+     padding: 24px 20px;
+     display: flex;
+     flex-direction: column;
+     gap: 16px;
+   }
+   
+   /* QR Code */
+   .ticket-qr {
+     display: flex;
+     justify-content: center;
+     padding: 8px 0;
+   }
+   
+   .qr-placeholder {
+     width: 120px;
+     height: 120px;
+     border-radius: 8px;
+     background: white;
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     color: var(--text);
+     font-size: 48px;
+     border: 1px solid var(--border);
+   }
+   
+   /* Bus Info */
+   .ticket-bus-info {
+     text-align: center;
+     padding-bottom: 8px;
+   }
+   
+   .bus-name {
+     font-size: 15px;
+     font-weight: 700;
+     color: var(--text);
+   }
+   
+   .bus-type {
+     font-size: 12px;
+     color: var(--text-3);
+     margin-top: 2px;
+   }
+   
+   /* Dashed Divider */
+   .ticket-divider {
+     position: relative;
+     height: 1px;
+     margin: 4px 0;
+   }
+   
+   .ticket-divider::before {
+     content: '';
+     position: absolute;
+     top: 0;
+     left: 0;
+     right: 0;
+     height: 1px;
+     background: repeating-linear-gradient(90deg, var(--border-2) 0, var(--border-2) 6px, transparent 6px, transparent 10px);
+   }
+   
+   /* Hole punches on sides */
+   .divider-hole {
+     position: absolute;
+     top: -6px;
+     width: 12px;
+     height: 12px;
+     border-radius: 50%;
+     background: #f8f9fa;
+     z-index: 2;
+   }
+   
+   .divider-hole.left { left: -26px; }
+   .divider-hole.right { right: -26px; }
+   
+   .divider-line {
+     display: none;
+   }
+   
+   /* Passenger Info */
+   .ticket-passenger {
+     padding: 4px 0;
+   }
+   
+   .passenger-name {
+     font-size: 14px;
+     font-weight: 600;
+     color: var(--text);
+   }
+   
+   .passenger-age {
+     font-size: 11px;
+     color: var(--text-3);
+     margin-top: 2px;
+   }
+   
+   /* Ticket Details */
+   .ticket-details {
+     display: flex;
+     flex-direction: column;
+     gap: 10px;
+   }
+   
+   .detail-row {
+     display: flex;
+     align-items: flex-start;
+     justify-content: space-between;
+     font-size: 12px;
+     gap: 12px;
+   }
+   
+   .detail-label {
+     color: var(--text-3);
+     flex-shrink: 0;
+   }
+   
+   .detail-value {
+     color: var(--text);
+     font-weight: 500;
+     text-align: right;
+     word-break: break-all;
+     display: flex;
+     align-items: center;
+     gap: 4px;
+   }
+   
+   .detail-value i {
+     color: var(--text-3);
+     font-size: 14px;
+     flex-shrink: 0;
+   }
+   
+   .detail-value.price {
+     font-size: 16px;
+     font-weight: 700;
+     color: var(--text);
+   }
+   
+   .detail-total {
+     padding-top: 10px;
+     border-top: 1px dashed var(--border-2);
+     margin-top: 4px;
+   }
+   
+   /* Ticket Actions */
+   .ticket-actions {
+     display: flex;
+     gap: 12px;
+     width: 100%;
+     justify-content: center;
+   }
+   
+   .ticket-btn {
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     gap: 8px;
+     padding: 12px 24px;
+     border-radius: 9999px;
+     font-size: 13px;
+     font-weight: 600;
+     cursor: pointer;
+     transition: all 0.2s;
+     border: none;
+     text-decoration: none;
+     white-space: nowrap;
+   }
+   
+   .btn-share {
+     background: var(--accent);
+     color: white;
+     box-shadow: 0 4px 12px rgba(239,68,68,0.25);
+   }
+   
+   .btn-share:hover {
+     background: var(--accent-h);
+     transform: translateY(-1px);
+     box-shadow: 0 6px 16px rgba(239,68,68,0.3);
+   }
+   
+   .btn-print {
+     background: #60a5fa;
+     color: white;
+     box-shadow: 0 4px 12px rgba(96,165,250,0.25);
+   }
+   
+   .btn-print:hover {
+     background: #3b82f6;
+     transform: translateY(-1px);
+     box-shadow: 0 6px 16px rgba(96,165,250,0.3);
+   }
+   
+   /* =============================================
+      PRINT STYLES
+      ============================================= */
+   @media print {
+     .ticket-page {
+       background: white !important;
+     }
+   
+     .ticket-gradient-header {
+       display: none !important;
+     }
+   
+     .ticket-main {
+       margin: 20px auto !important;
+       padding: 0 !important;
+     }
+   
+     .ticket-logo,
+     .print-title {
+       display: none !important;
+     }
+   
+     .ticket-actions {
+       display: none !important;
+     }
+   
+     .support-btn {
+       display: none !important;
+     }
+   
+     .ticket-card {
+       box-shadow: none !important;
+       border: 1px solid #e5e5e5;
+     }
+   
+     body {
+       -webkit-print-color-adjust: exact;
+       print-color-adjust: exact;
+     }
+   }
+   /* =============================================
+      RESPONSIVE
+      ============================================= */
+   @media (max-width: 900px) {
+     .page-main {
+       flex-direction: row;
+     }
+   
+     .trip-panel {
+       width: 280px;
+       padding: 12px 14px;
+     }
+   
+     .seat-panel {
+       padding: 12px 14px;
+     }
+   
+     .bus-layout {
+       padding: 16px 22px;
+     }
+   
+     .seat {
+       width: 32px;
+       height: 32px;
+     }
+   
+     .seat i {
+       font-size: 16px;
+     }
+   
+     .seat-aisle {
+       width: 16px;
+     }
+   
+     .stop-address {
+       display: none;
+     }
+   
+     .payment-details-grid {
+       grid-template-columns: 1fr;
+     }
+   }
+   
+   @media (max-width: 640px) {
+     .page-main {
+       flex-direction: column;
+     }
+   
+     .trip-panel {
+       width: 100%;
+       border-right: none;
+       border-bottom: 1px solid var(--border);
+       max-height: 35vh;
+     }
+   
+     .seat-panel {
+       min-height: 300px;
+     }
+   
+     .trip-label {
+       font-size: 12px;
+     }
+   
+     .stop-time {
+       font-size: 12px;
+     }
+   
+     .stop-name {
+       font-size: 11px;
+     }
+   
+     .seat {
+       width: 28px;
+       height: 28px;
+     }
+   
+     .seat i {
+       font-size: 14px;
+     }
+   
+     .bus-layout {
+       padding: 14px 18px;
+       border-radius: 12px;
+     }
+   
+     .page-main.center-content {
+       padding: 16px 16px 100px;
+     }
+   
+     .booking-summary {
+       flex-direction: column;
+       align-items: flex-start;
+       gap: 12px;
+     }
+   
+     .payment-details-grid {
+       grid-template-columns: 1fr;
+     }
+   
+     .ticket-main {
+       padding: 24px 16px 40px;
+     }
+   
+     .ticket-actions {
+       flex-direction: column;
+       width: 100%;
+     }
+   
+     .ticket-btn {
+       width: 100%;
+     }
+   }
